@@ -1,6 +1,6 @@
 ---
 title: nodemon
-date: 2018-05-17 15:18:09
+date: 2018-05-18 16:33:41
 tags: ['node','nodemon']
 ---
 ### nodemon 基本配置与使用
@@ -11,5 +11,3 @@ npm i -g nodemon
 ``` 
 -
 <!-- more -->
-萨达萨达萨达
-萨达萨达萨达
