@@ -3,18 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: 大鹏的博客
 subtitle:
-description:
+description: 人生不知眼前的苟且，还有诗和远方的田野
 keywords:
-author: John Doe
-language:
+author: dapeng
+language: zh-Hans
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
-root: /
+url: https://zhangyapeng0222.github.io/person_blogs/
+root: /person_blogs/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -73,11 +73,17 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:zhangyapeng0222/person_blogs.git
+  repo: https://github.com/zhangyapeng0222/person_blogs.git
   branch: gh-pages
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
