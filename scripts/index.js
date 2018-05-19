@@ -26,15 +26,7 @@ function run() {
 			echo('Error: Git commit failed');
 			exit(1);
         }
-		if (exec('git tag -d v3.0').code !== 0){
-			echo('Error: Git delete tag failed');
-			exit(1);
-		}
-		if (exec('git tag -a v3.0 -m"Form auto backup script\'s tags"').code !== 0){
-			echo('Error: Git add tag failed');
-			exit(1);
-		}
-		if (exec('git push  origin --tags').code !== 0) {
+		if (exec('git push  origin master').code !== 0) {
 			echo('Error: Git push failed');
 			exit(1);
 
