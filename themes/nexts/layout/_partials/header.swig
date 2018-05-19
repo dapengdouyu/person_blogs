@@ -63,6 +63,46 @@
           </a>
         </li>
       {% endif %}
+      {% if theme.Hmusic %}
+<!-- 自定义High一下的功能 -->
+    <li class="menu-item">
+        <a id="high_music" title="把这个链接拖到你的工具栏中,任何网页都可以High" href='javascript:;'>
+            <i class="menu-item-icon fa fa-music fa-fw"></i>High一下
+        </a> 
+        <script>
+       function Music(){
+        this.songs= [
+        "http://bdyun.65dj.com:8090/2015/06/28/84791C997D8C55023DAD0D5690E48C28/%D1%A6%D6%AE%C7%AB%20-%20%D1%DD%D4%B1.mp3",
+        "http://7xoiki.com1.z0.glb.clouddn.com/Music-sunburst.mp3",
+        "http://www.aqgy.org/down/513.mp3"
+    ];
+    this.index=-1
+    this.ele=null;
+    }
+    Music.prototype.create=function(){
+       this.ele=document.createElement("video");
+       this.ele.type="audio/mpeg"
+       return this
+    }
+    Music.prototype.play=function(){
+        this.high_music=document.querySelector("#high_music")
+        this.high_music.addEventListener("click",()=>{
+            this.index=this.index<this.songs.length-1?++this.index:0
+            this.ele.src=this.songs[this.index]
+            this.ele.play().then(()=>{
+                console.log("播放成功")
+            },()=>{
+                console.log("播放失敗")
+            })
+        })
+        this.high_music.addEventListener("dblclick",()=>{
+            this.ele.pause()
+        })
+    }
+    let music=new Music()
+    music.onloads().create().play()
+        </script>
+        {% endif %}
     </ul>
   {% endif %}
 
@@ -72,5 +112,6 @@
     </div>
   {% endif %}
 </nav>
+
 
 {% include '../_custom/header.swig' %}

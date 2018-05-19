@@ -230,9 +230,9 @@ post_meta:
 # Dependencies: https://github.com/willin/hexo-wordcount
 post_wordcount:
   item_text: true
-  wordcount: false
-  min2read: false
-  totalcount: false
+  wordcount: true         # 单篇 字数统计
+  min2read: true          # 单篇 阅读时长
+  totalcount: false       # 网站 字数统计
   separated_meta: true
 
 # Wechat Subscriber
@@ -378,9 +378,9 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: true
-  appid: xb0CD6LXpsiWakv1vqqGvArr-gzGzoHsz # your leancloud application appid
-  appkey: QY6l9v7TBktnoVFXmbUGUvkW # your leancloud application appkey
+  enable: false
+  #appid:  # your leancloud application appid
+  #appkey: # your leancloud application appkey
   #notify: true # mail notifier , https://github.com/xCss/Valine/wiki
   #verify: true # Verification code
   #placeholder: Just go go # comment box placeholder
@@ -418,7 +418,7 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-baidushare: true
+#baidushare: true
 ##  type: button
 
 # Share
@@ -444,7 +444,7 @@ baidushare: true
 #           Technorati,Posterous,Tumblr,GoogleBookmarks,Newsvine,
 #           Evernote,Friendfeed,Vkontakte,Odnoklassniki,Mailru
 needmoreshare2:
-  enable: false
+  enable: true
   postbottom:
     enable: false
     options:
@@ -453,12 +453,12 @@ needmoreshare2:
       position: bottomCenter
       networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
   float:
-    enable: false
+    enable: true
     options:
-      iconStyle: box
-      boxForm: horizontal
+      iconStyle: defalut
+      boxForm: vertical
       position: middleRight
-      networks: Weibo,Wechat,Douban,QQZone,Twitter,Facebook
+      networks: Weibo,Douban,QQZone,Twitter,Facebook
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
@@ -531,9 +531,9 @@ rating:
 # Show number of visitors to each article.
 # You can visit https://leancloud.cn get AppID and AppKey.
 leancloud_visitors:
-  enable: false
-  app_id: #<app_id>
-  app_key: #<app_key>
+  enable: true
+  app_id: xb0CD6LXpsiWakv1vqqGvArr-gzGzoHsz
+  app_key: QY6l9v7TBktnoVFXmbUGUvkW
 
 # Another tool to show number of visitors to each article.
 # visit https://console.firebase.google.com/u/0/ to get apiKey and projectId
@@ -674,8 +674,11 @@ motion:
 # Fancybox
 fancybox: true
 
+# HMusic
+Hmusic: true
+
 # Progress bar in the top during page loading.
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce
@@ -769,8 +772,8 @@ vendors:
   # Or use direct links below:
   # pace: //cdn.bootcss.com/pace/1.0.2/pace.min.js
   # pace_css: //cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-flash.min.css
-  pace:
-  pace_css:
+  pace: 
+  pace_css: 
 
   # Internal version: 1.0.0
   # https://github.com/hustcc/canvas-nest.js
