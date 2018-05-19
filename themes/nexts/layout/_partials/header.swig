@@ -100,7 +100,7 @@
         })
     }
     let music=new Music()
-    music.onloads().create().play()
+    music.create().play()
         </script>
         {% endif %}
     </ul>
