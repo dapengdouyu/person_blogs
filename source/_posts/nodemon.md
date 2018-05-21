@@ -6,7 +6,7 @@ tags: ['nodemon','node']
 ## nodemon的配置详解
 ### nodemon 安装配置
 平常我们使用node的时候，经常修改一次js代码后，都要重新node xxx 才能看到改动后的效果，调试起来十分不方便。所以我引入了nodemon模块了弥补这样缺点。
-
+<!-- more -->
 - 首先安装nodemon
 ```Bash
 npm i -g nodemon
