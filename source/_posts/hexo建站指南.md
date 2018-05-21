@@ -140,14 +140,12 @@ function run() {
     - 如果你的Git远程仓库名称不为origin的话，还需要修改第28行执行的push命令，修改成自己的远程仓库名和相应的分支名。
 
 ### 常见问题 - 代码高亮
-小编刚开始写的代码往往是这样的，[Next代码高亮]完全没有作用(http://theme-next.iissnan.com/theme-settings.html#syntax-highlight-scheme)
+- 小编刚开始写的代码往往是这样的，[Next代码高亮]完全没有作用(http://theme-next.iissnan.com/theme-settings.html#syntax-highlight-scheme)
 ```
 require('shelljs/global');
 ```
-原来是没有在三个`后加上语言名，如java。
-
-![建站指南](./js.png)
-
+- 原来是没有在三个`后加上语言名，如java。![建站指南](./js.png)
 ```js
 require('shelljs/global');
 ```
+
