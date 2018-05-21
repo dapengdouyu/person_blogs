@@ -146,7 +146,7 @@ require('shelljs/global');
 ```
 原来是没有在三个`后加上语言名，如java。
 
-![建站指南](./hexo建站指南/js.png)
+![建站指南](./js.png)
 
 ```js
 require('shelljs/global');
