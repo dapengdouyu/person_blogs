@@ -12,6 +12,7 @@ tags: ['blog','hexo']
 - <a href="https://git-scm.com/download/win" class="fa fa-download"> <b>Git</b></a>
 - <a href="https://nodejs.org/en/" class="fa fa-download"> <b>node</b></a>
 
+<!-- more -->
 如果你的电脑中尚未安装所需要的程序，请根据以下安装指示完成安装
 #### 安装步骤
 - 安装`hexo-cli`
