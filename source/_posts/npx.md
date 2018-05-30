@@ -11,10 +11,11 @@ tags: ['node','npx']
 #### 举个栗子：
 - 举例来说，之前我们可能会写这样的命令：
 
-```Bash
+```sh
 npm i -D webpack
 ./node_modules/.bin/webpack -v
 ```
+<!--more-->
 如果你对 bash 比较熟，可能会写成这样
 ```
 npm i -D webpack
@@ -28,7 +29,7 @@ npx webpack -v
 也就是说 npx 会自动查找当前依赖包中的可执行文件，如果找不到，就会去 PATH 里找。如果依然找不到，就会帮你安装！
 
 #### npx 甚至支持运行远程仓库的可执行文件，如
-```Bash
+```sh
 npx github:piuccio/cowsay hello
 npx: 1 安装成功，用时 1.663 秒
  _______
@@ -42,7 +43,7 @@ npx: 1 安装成功，用时 1.663 秒
 ```
 ### 再比如 npx http-server 可以一句话帮你开启一个静态服务器！（第一次运行会稍微慢一些）
 npx 还允许我们单次执行命令而不需要安装；在某些场景下有可能我们安装了某个全局命令行工具之后一直忘了更新，导致以后使用的时候误用了老版本。而使用 npx create-react-app my-cool-new-app 来执行 create-react-app 命令时，它会正常地帮我们创建 React 应用而不会实际安装 create-react-app 命令行。
-```
+```sh
 $ npx http-server
 npx: 23 安装成功，用时 48.633 秒
 Starting up http-server, serving ./

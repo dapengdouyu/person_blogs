@@ -1,11 +1,16 @@
 require('shelljs/global');
-console.log("hexo213333333333333333333333333333333333333333333333333")
+var spawn = require('child_process').exec;
+
 
 try {
     hexo.on('deployAfter', function() {//当deploy完成后执行备份
-        console.log("1")
 		run();
 	});
+	hexo.on('new',function(data){
+		spawn('start "C:\Program Files\Microsoft VS Code\Code.exe"'+ data.path);
+	});
+
+	
 } catch (e) {
 	console.log("产生了一个错误<(￣3￣)> !，错误详情为：" + e.toString());
 }
