@@ -313,3 +313,4 @@ module.exports = function (options) {
 -----
 **参考文档：**
 - [插件编写入门](http://www.cnblogs.com/chyingp/p/writting-gulp-plugin.html)
+- [代码](https://github.com/zhangyapeng0222/gulp)
