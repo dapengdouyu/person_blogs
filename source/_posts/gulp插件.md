@@ -5,6 +5,52 @@ tags: ['gulp','插件']
 ---
 ### gulp插件
 <!--more-->
+#### gulp-rev-append
+gulp-rev-append给页面的引用添加版本号，清除页面引用缓存。通过正则(?:href|src)=”(.*)[?]rev=(.*)[“]查找并给指定链接填加版本号(默认根据文件MD5生成，因此文件未发生改变，此版本号将不会变)
+```html
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="css/style.css?rev=@@hash">
+    <script src="js/js-one.js?rev=@@hash"></script>
+    <script src="js/js-two.js"></script>
+  </head>
+  <body>
+    <div>hello, world!</div>
+    <img src="img/test.jpg?rev=@@hash" alt="" />
+    <script src="js/js-three.js?rev=@@hash"></script>
+  </body>
+</html>
+```
+```js
+var gulp = require('gulp'),
+    rev = require('gulp-rev-append');
+ 
+gulp.task('testRev', function () {
+    gulp.src('src/html/index.html')
+        .pipe(rev())
+        .pipe(gulp.dest('dist/html'));
+});
+```
+#### del
+在 `gulpfile` 中，我们希望在运行我们的编译任务之前，将 `mobile` 文件的内容先清理掉：
+```js
+var gulp = require('gulp');
+var del = require('del');
+
+gulp.task('clean:mobile', function (cb) {
+  del([
+    'dist/report.csv',
+    // 这里我们使用一个通配模式来匹配 `mobile` 文件夹中的所有东西
+    'dist/mobile/**/*',
+    // 我们不希望删掉这个文件，所以我们取反这个匹配模式
+    '!dist/mobile/deploy.json'
+  ], cb);
+});
+
+gulp.task('default', ['clean:mobile']);
+```
+
 #### gulp-load-plugins
 这个插件能自动帮你加载package.json文件里的gulp插件。 例如假设你的package.json文件里的依赖是这样的:
 ```js
