@@ -4,6 +4,21 @@ date: 2018-05-30 15:44:08
 tags: ['gulp','插件']
 ---
 ### gulp插件
+#### gulp-babel
+es5转成es6
+```js
+const gulp = require('gulp');
+const babel = require('gulp-babel');
+
+gulp.task('default', () =>
+	gulp.src('src/app.js')
+		.pipe(babel({
+			presets: ['@babel/env']
+		}))
+		.pipe(gulp.dest('dist'))
+);
+```
+
 <!--more-->
 #### gulp-rev-append
 gulp-rev-append给页面的引用添加版本号，清除页面引用缓存。通过正则(?:href|src)=”(.*)[?]rev=(.*)[“]查找并给指定链接填加版本号(默认根据文件MD5生成，因此文件未发生改变，此版本号将不会变)
