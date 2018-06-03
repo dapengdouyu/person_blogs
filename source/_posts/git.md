@@ -367,6 +367,23 @@ git config --global branch.autosetuprebase always
 ```
 这样对于新建的分支都会设定上面的rebase=true了。已经创建好的分支还是需要手动配置的。
 
+14、删除分支
+- 删除本地分支
+```sh
+git branch -D [本地分支名];//删除本地master分支
+```
+- 删除远程分支
+```sh
+git push origin --delete <branchName>//删除远程分支
+git push origin --delete tag <tagname>//删除远程tag
+```
+- 删除远程master分支
+  1. `github gitlab`当前分支不能为要删除分支
+  2. 在github上将master分支设置成不是default的分支，这里就要选择temp分支了，因为只有两个分支。github操作，点击后面的settings，选择不是master的分支为默认。
+  3. 删除本地master分支
+```sh
+  git branch -D [本地分支名];
+```
 ### github 界面操作
 `给别的仓库提交代码修改或者建议`
 > 1. 首先fork别人的仓库
