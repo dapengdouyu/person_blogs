@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "npx hexo clean && npx hexo g && gulp min && npx hexo d",
-    "server": "npx hexo clean && npx hexo generate && npx hexo server --debug"
+    "server": "npx hexo clean && npx hexo generate && npx hexo server --debug",
+    "gulp":"gulp"
   },
   "hexo": {
     "version": "3.7.1"
