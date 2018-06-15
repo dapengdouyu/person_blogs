@@ -12,7 +12,6 @@ tags: ['es6','js']
 因为这些问题,es6引入了let和const来解决它们。es6之前js的作用域只有**函数作用域**和**全局作用域**。
 <!-- more -->
 - let块级作用域
-<!-- more -->
 ```js
 if(true){
     let name='zyp'
