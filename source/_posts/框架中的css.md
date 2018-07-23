@@ -39,3 +39,11 @@ tags: ['前端基础','css','框架中的css']
     - `<div abcdefg>`
     - `div[abcdefg]{}`
 
+## react
+- 官方没有集成方案
+- 社区方案众多
+    - css modules
+    - (babel)react-css-modules
+    - [styled components](https://www.styled-components.com/)
+    - styled jsx
+
