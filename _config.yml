@@ -123,7 +123,7 @@ filter_optimize:
   #   - like `?v=1.0.0`
   remove_query_string: true
   # remove the surrounding comments in each of the bundled files
-  remove_comments: false
+  remove_comments: true
   css:
     enable: true
     # bundle loaded css file into the one
@@ -137,7 +137,7 @@ filter_optimize:
     excludes:
   js:
     # bundle loaded js file into the one
-    bundle: true
+    bundle: false
     excludes:
   # set the priority of this plugin,
   # lower means it will be executed first, default is 10
