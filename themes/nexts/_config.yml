@@ -814,10 +814,3 @@ images: images
 
 # Theme version
 version: 5.1.4
-
-#https://github.com/EYHN/hexo-helper-live2d/blob/master/README.zh-CN.md
-live2d:
-  model: hijiki
-  position: left
-  bottom: -30
-  mobileShow: false  #手机端不显示
