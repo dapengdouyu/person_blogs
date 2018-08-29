@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npx hexo clean && npx hexo g && gulp min && npx hexo d",
     "server": "npx hexo clean && npx hexo generate && npx hexo server --debug",
-    "gulp":"gulp"
+    "gulp": "gulp"
   },
   "hexo": {
     "version": "3.7.1"
@@ -19,6 +19,7 @@
     "hexo-generator-index": "^0.2.0",
     "hexo-generator-searchdb": "^1.0.8",
     "hexo-generator-tag": "^0.2.0",
+    "hexo-helper-live2d": "^3.1.0",
     "hexo-renderer-ejs": "^0.3.0",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-stylus": "^0.3.1",
