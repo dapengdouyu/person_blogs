@@ -89,3 +89,4 @@
   {% include '_third-party/exturl.swig' %}
 </body>
 </html>
+  <script type="text/javascript" src="/person_blogs/js/src/love.js"></script>

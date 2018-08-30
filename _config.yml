@@ -10,6 +10,7 @@ keywords:
 author: dapeng
 language: zh-Hans
 timezone:
+host: fonts.useso.com
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -123,9 +124,9 @@ filter_optimize:
   #   - like `?v=1.0.0`
   remove_query_string: true
   # remove the surrounding comments in each of the bundled files
-  remove_comments: true
+  remove_comments: false
   css:
-    enable: true
+    enable: false
     # bundle loaded css file into the one
     bundle: true
     # use a script block to load css elements dynamically
@@ -142,3 +143,33 @@ filter_optimize:
   # set the priority of this plugin,
   # lower means it will be executed first, default is 10
   priority: 12
+
+# 骑牛
+#plugins:
+# - hexo-qiniu-sync
+
+qiniu:
+  offline: false
+  sync: true
+  bucket: blog
+  #这里将其注释掉，不注释，执行hexo g报错
+  # secret_file: sec/qn.json or C:
+  access_key: Ldr6zuIeyZZ84fk9RlYyYTQpBOVaE15VPMc0xVuP
+  secret_key: mJe9tByrL1nRhIjWztW50r17QI3jeT1ngy2vwlOr
+  #上传的资源子目录前缀.如设置，需与urlPrefix同步
+  dirPrefix: blog
+  #外链前缀
+  urlPrefix: http://pe9fmhwrj.bkt.clouddn.com/blog
+  #使用默认配置即可
+  up_host: http://upload.qiniu.com
+  #本地目录
+  local_dir: static
+  # 是否更新已经上传过的文件(仅文件大小不同或在上次上传后进行更新的才会重新上传)
+  update_exist: true
+  image: 
+    folder: images
+    extend: 
+  js:
+    folder: js
+  css:
+    folder: css
