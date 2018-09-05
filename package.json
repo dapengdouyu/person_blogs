@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "npx hexo clean && npx hexo g && gulp min && npx hexo d",
-    "server": "npx hexo clean && npx hexo generate && npx hexo server",
+    "start": "hexo clean && hexo g && gulp min && hexo d",
+    "server": "hexo clean && npx hexo generate && npx hexo server",
     "gulp": "gulp"
   },
   "hexo": {
