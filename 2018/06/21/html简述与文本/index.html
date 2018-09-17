@@ -1,0 +1,314 @@
+<!DOCTYPE html><html class="theme-next pisces use-motion" lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#222"><script src="https://cdn.bootcss.com/pace/1.0.2/pace.min.js"></script><link href="/person_blogs/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css"><link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css"><link href="https://cdn.jsdelivr.net/npm/font-awesome@4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"><link href="/person_blogs/css/main.css?v=5.1.4" rel="stylesheet" type="text/css"><link rel="apple-touch-icon" sizes="180x180" href="/person_blogs/images/apple-touch-icon-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="32x32" href="/person_blogs/images/favicon-32x32-next.png?v=5.1.4"><link rel="icon" type="image/png" sizes="16x16" href="/person_blogs/images/favicon-16x16-next.png?v=5.1.4"><link rel="mask-icon" href="/person_blogs/images/logo.svg?v=5.1.4" color="#222"><meta name="keywords" content="前端基础,html,"><link rel="alternate" href="/person_blogs/atom.xml" title="大鹏的博客" type="application/atom+xml"><meta name="description" content="HTML是什么 HyperText Markup Language 使用标签来描述页面的内容和结构  HTML的产生 1989年,TimBerners-Lee 共享文档需要 还发明了浏览器、服务器和HTTP  Doctype的作用 指定HTML页面使用的标准和版本 浏览器根据doctype决定使用哪种渲染模式  渲染模式 Quirks Mode 怪异模式 —-(html4之前) Almost St"><meta name="keywords" content="前端基础,html"><meta property="og:type" content="article"><meta property="og:title" content="html简述与文本"><meta property="og:url" content="https://zhangyapeng0222.github.io/person_blogs/2018/06/21/html简述与文本/index.html"><meta property="og:site_name" content="大鹏的博客"><meta property="og:description" content="HTML是什么 HyperText Markup Language 使用标签来描述页面的内容和结构  HTML的产生 1989年,TimBerners-Lee 共享文档需要 还发明了浏览器、服务器和HTTP  Doctype的作用 指定HTML页面使用的标准和版本 浏览器根据doctype决定使用哪种渲染模式  渲染模式 Quirks Mode 怪异模式 —-(html4之前) Almost St"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="https://zhangyapeng0222.github.io/person_blogs/2018/06/21/html简述与文本/网页总体结构.png"><meta property="og:updated_time" content="2018-09-05T06:30:33.774Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="html简述与文本"><meta name="twitter:description" content="HTML是什么 HyperText Markup Language 使用标签来描述页面的内容和结构  HTML的产生 1989年,TimBerners-Lee 共享文档需要 还发明了浏览器、服务器和HTTP  Doctype的作用 指定HTML页面使用的标准和版本 浏览器根据doctype决定使用哪种渲染模式  渲染模式 Quirks Mode 怪异模式 —-(html4之前) Almost St"><meta name="twitter:image" content="https://zhangyapeng0222.github.io/person_blogs/2018/06/21/html简述与文本/网页总体结构.png"><script type="text/javascript" id="hexo.configurations">var NexT=window.NexT||{},CONFIG={root:"/person_blogs/",scheme:"Pisces",version:"5.1.4",sidebar:{position:"left",display:"post",offset:12,b2t:!1,scrollpercent:!1,onmobile:!1},fancybox:!0,tabs:!0,motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}},duoshuo:{userId:"0",author:"博主"},algolia:{applicationID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}}}</script><link rel="canonical" href="https://zhangyapeng0222.github.io/person_blogs/2018/06/21/html简述与文本/"><title>html简述与文本 | 大鹏的博客</title><script type="text/javascript">var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?5bad22218259d1cb764a37744176e1bb";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-left page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta"><div class="custom-logo-site-title"><a href="/person_blogs/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">大鹏的博客</span> <span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle"></p></div><div class="site-nav-toggle"><button><span class="btn-bar"></span> <span class="btn-bar"></span> <span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/person_blogs/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i><br>首页</a></li><li class="menu-item menu-item-tags"><a href="/person_blogs/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i><br>标签</a></li><li class="menu-item menu-item-archives"><a href="/person_blogs/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i><br>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/person_blogs/404.html" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i><br>公益404</a></li><li class="menu-item menu-item-search"><a href="javascript:;" class="popup-trigger"><i class="menu-item-icon fa fa-search fa-fw"></i><br>搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i> </span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://zhangyapeng0222.github.io/person_blogs/person_blogs/2018/06/21/html简述与文本/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="dapeng"><meta itemprop="description" content=""><meta itemprop="image" content="/person_blogs/uploads/avatar.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="大鹏的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">html简述与文本</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-21T15:22:37+08:00">2018-06-21 </time></span><span id="/person_blogs/2018/06/21/html简述与文本/" class="leancloud_visitors" data-flag-title="html简述与文本"><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-eye"></i> </span><span class="post-meta-item-text">阅读次数&#58;</span> <span class="leancloud-visitors-count"></span></span><div class="post-wordcount"><span class="post-meta-item-icon"><i class="fa fa-file-word-o"></i> </span><span class="post-meta-item-text">字数统计&#58;</span> <span title="字数统计">1,103 </span><span class="post-meta-divider">|</span> <span class="post-meta-item-icon"><i class="fa fa-clock-o"></i> </span><span class="post-meta-item-text">阅读时长 &asymp;</span> <span title="阅读时长">5</span></div></div></header><div class="post-body" itemprop="articleBody"><h2 id="HTML是什么"><a href="#HTML是什么" class="headerlink" title="HTML是什么"></a>HTML是什么</h2><ul><li>HyperText Markup Language</li><li>使用<code>标签</code>来描述页面的<code>内容</code>和<code>结构</code></li></ul><h3 id="HTML的产生"><a href="#HTML的产生" class="headerlink" title="HTML的产生"></a>HTML的产生</h3><ul><li>1989年,TimBerners-Lee</li><li>共享文档需要</li><li>还发明了浏览器、服务器和HTTP</li></ul><h3 id="Doctype的作用"><a href="#Doctype的作用" class="headerlink" title="Doctype的作用"></a>Doctype的作用</h3><ul><li>指定HTML页面使用的标准和版本</li><li>浏览器根据doctype决定使用哪种渲染模式</li></ul><h3 id="渲染模式"><a href="#渲染模式" class="headerlink" title="渲染模式"></a>渲染模式</h3><ul><li>Quirks Mode 怪异模式 —-(<code>html4之前</code>)</li><li>Almost Standard Mode 准标准模式—-(<code>有些标签大小写不严格</code>)</li><li>Standard Mode 标准模式—(<code>标签大小写严格标准</code>)</li></ul><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- html5 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 准标准模式 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"</span></span><br><span class="line"><span class="meta">"http://www.w3.org/TR/html4/loose.dtd"&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 标准模式 --&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"</span></span><br><span class="line"><span class="meta">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 当 doctype 缺失的时候，浏览器会选择 Quirks Mode --&gt;</span></span><br></pre></td></tr></table></figure><h3 id="HTML-版本"><a href="#HTML-版本" class="headerlink" title="HTML 版本"></a>HTML 版本</h3><ul><li>HTML 1.0,1991</li><li>HTML 2.0,1994,IETE</li><li>HTML 3.2, 1997,W3C<ul><li>Netscape引入私有标签</li><li>HTML 3.0失败</li><li>W3C接管HTML标准化</li></ul></li><li>HTML 4.01,1998<ul><li>样式与内容分离,CSS支持</li><li>Doctype</li></ul></li><li>XHTML 1.0,2000<ul><li>用XML语法重新定义HTML</li><li>语法严格要求</li></ul></li><li>XHTML 2.0<ul><li>不<code>兼容历史</code></li><li>去除样式类标签</li><li>去除img、a标签</li><li>彻底修改Form</li><li>开发者不欢迎,浏览器不支持</li></ul></li><li>HTML5<ul><li>2004年,WHATWG继续发展HTML</li><li>2008年,W3C HTML5草案发布</li></ul></li></ul><h3 id="HTML5-设计思想"><a href="#HTML5-设计思想" class="headerlink" title="HTML5 设计思想"></a>HTML5 设计思想</h3><ul><li>兼容已有内容</li><li>避免不必要的复杂性</li><li>解决现实的问题</li><li>优雅降级</li><li>尊重事实标准</li><li>用户的需求–&gt;开发者的需求–&gt;浏览器厂商的需求–&gt;标准的制定者的需求–&gt;理论完美</li></ul><h3 id="HTML5-中的变化"><a href="#HTML5-中的变化" class="headerlink" title="HTML5 中的变化"></a>HTML5 中的变化</h3><ul><li>doctype、meta</li><li>新增语义化标签和属性</li><li>去掉纯展示性标签</li><li>canvas、video、audio、离线、本地存储、拖拽等</li></ul><h3 id="HTML5语法"><a href="#HTML5语法" class="headerlink" title="HTML5语法"></a>HTML5语法</h3><ul><li>标签不区分大小写,推荐小些</li><li>空标签可以不闭合,如<code>&lt;input&gt; &lt;meta&gt;</code></li><li>属性不必引号,推荐双引号</li><li>某些属性值可以省略,如required、readonly</li></ul><h3 id="文本标签"><a href="#文本标签" class="headerlink" title="文本标签"></a>文本标签</h3><ul><li>p</li><li>h1~h6</li><li>hr 段落级别的话题切换（效果：一条横线）</li><li><p>列表：</p><ul><li>有序列表 <code>ol、li</code></li><li>无序列表 <code>ul、li</code></li><li><p>自定义列表<code>dl、dt、dd</code></p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>霸王别姬<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dl</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>导演：<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>陈凯歌<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>主演：<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>张国荣<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>巩俐<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>张丰毅<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>上映日期：<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span>&gt;</span>1993-01-01<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>列表是可以嵌套的（列表中有列表,自动默认有缩紧）。</p></li></ul></li><li>嵌套规则：内外不要混搭</li><li><p>引用</p><ul><li><p>长段落引用块标签</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">blockquote</span> <span class="attr">cite</span>=<span class="string">"myURL"</span>&gt;</span>长段落引用块标签<span class="tag">&lt;/<span class="name">blockquote</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>短引用</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">cite</span>&gt;</span>短引用说来源，如书名、标题<span class="tag">&lt;/<span class="name">cite</span>&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>引用内容</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">q</span>&gt;</span>引用的内容，如引用一句话<span class="tag">&lt;/<span class="name">q</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ul></li><li><p>预格式化文本</p><ul><li><code>pre</code>保留空格和换行</li></ul></li><li>代码段<code>code</code></li><li>插图<code>figure</code><ul><li>可以包裹<code>图片</code>或<code>代码段</code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">figure</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">figcaption</span>&gt;</span>定义一个函数<span class="tag">&lt;/<span class="name">figcaption</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">pre</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">code</span>&gt;</span></span><br><span class="line">            function add(x,y)&#123;</span><br><span class="line">                return x+y</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">code</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">figure</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ul></li></ul><h3 id="网页总体结构"><a href="#网页总体结构" class="headerlink" title="网页总体结构"></a>网页总体结构</h3><p><img src="网页总体结构.png" alt="网页总体结构"><br><a href="https://www.cnblogs.com/Iwillknow/p/3581063.html" target="_blank" rel="noopener">html5 Doctor</a></p><ul><li>header 页头</li><li>footer 页尾</li><li>main 正文(网页想要表达的主要内容)</li><li>aside 侧边栏(和正文内容无关)</li><li>article 文章</li><li>section 文档中的节，一段<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">header</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>字体排版<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>作者：XXX<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">section</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>语言及范围<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>在当代，。。。。。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>字体排版。。。<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="强调："><a href="#强调：" class="headerlink" title="强调："></a>强调：</h3><ul><li><code>strong</code>：重要性、严重性、紧急性</li><li><code>em</code>：从一句话中突出某个词语</li><li><code>b</code>：仅为了将词语从视觉上和其他部分区分，比如一篇论文摘要中的关键词。（不推荐）</li><li><code>i</code>：换一种语调去说一句话时，比如其他语言翻译，对话中的旁白。（不推荐）</li></ul><h3 id="定义与缩写："><a href="#定义与缩写：" class="headerlink" title="定义与缩写："></a>定义与缩写：</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dfn</span>&gt;</span>定义<span class="tag">&lt;/<span class="name">dfn</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">abbr</span> <span class="attr">title</span>=<span class="string">"对缩写的解释"</span>&gt;</span>缩写<span class="tag">&lt;/<span class="name">abbr</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">code</span>&gt;</span>代码段<span class="tag">&lt;/<span class="name">code</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">var</span>&gt;</span>变量<span class="tag">&lt;/<span class="name">var</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">kbd</span>&gt;</span>键盘按键 F12<span class="tag">&lt;/<span class="name">kbd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">samp</span>&gt;</span>举个例子<span class="tag">&lt;/<span class="name">samp</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="上标和下标"><a href="#上标和下标" class="headerlink" title="上标和下标"></a>上标和下标</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">sub</span>&gt;</span><span class="tag">&lt;/<span class="name">sub</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">sup</span>&gt;</span><span class="tag">&lt;/<span class="name">sup</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="mark"><a href="#mark" class="headerlink" title="mark"></a>mark</h3><ul><li>和用户当前行为相关的突出，比如在搜索结果中匹配到的词</li><li>一部分内容需要在后面引用时。</li></ul><h3 id="插入和删除"><a href="#插入和删除" class="headerlink" title="插入和删除"></a>插入和删除</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ins</span>&gt;</span>更新<span class="tag">&lt;/<span class="name">ins</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">del</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">del</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 用途 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">del</span>&gt;</span>原价：199<span class="tag">&lt;/<span class="name">del</span>&gt;</span><span class="tag">&lt;<span class="name">ins</span>&gt;</span>双十一：100<span class="tag">&lt;/<span class="name">ins</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="换行控制（尽量避免）"><a href="#换行控制（尽量避免）" class="headerlink" title="换行控制（尽量避免）"></a>换行控制（尽量避免）</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">br</span>&gt;</span> </span><br><span class="line"><span class="comment">&lt;!-- 用途 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>https://blog.csdn.net/sunxiaofre/<span class="tag">&lt;<span class="name">wbr</span>&gt;</span>article/<span class="tag">&lt;<span class="name">wbr</span>&gt;</span>details<span class="tag">&lt;<span class="name">wbr</span>&gt;</span>/695002<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="div-和-span"><a href="#div-和-span" class="headerlink" title="div 和 span"></a>div 和 span</h3><ul><li>实在找不到其他更符合语义的标签时使用</li></ul><h3 id="实体（Entity）字符"><a href="#实体（Entity）字符" class="headerlink" title="实体（Entity）字符"></a>实体（Entity）字符</h3><ul><li>&amp;&nbsp;&gt; &copy;&yen;&#9775;</li><li><code>&amp;amp;&amp;nbsp;&amp;gt;&amp;copy;&amp;yen;&amp;#9775;</code></li></ul></div><div><div style="padding:10px 0;margin:20px auto;width:90%;text-align:center"><div>喜欢我记的打赏额</div><button id="rewardButton" disable="enable" onclick='var qr=document.getElementById("QR");"none"===qr.style.display?qr.style.display="block":qr.style.display="none"'><span>打赏</span></button><div id="QR" style="display:none"><div id="wechat" style="display:inline-block"><img id="wechat_qr" src="/person_blogs/uploads/wechatpay.jpg" alt="dapeng 微信支付"><p>微信支付</p></div></div></div></div><footer class="post-footer"><div class="post-tags"><a href="/person_blogs/tags/前端基础/" rel="tag"># 前端基础</a> <a href="/person_blogs/tags/html/" rel="tag"># html</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/person_blogs/2018/06/21/text-size-adjust使用汇总/" rel="next" title="text-size-adjust使用汇总"><i class="fa fa-chevron-left"></i> text-size-adjust使用汇总</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"><a href="/person_blogs/2018/06/21/连接与图片/" rel="prev" title="连接与图片">连接与图片 <i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"><div id="lv-container" data-id="city" data-uid="MTAyMC8zNjU3My8xMzEwOA=="></div></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span> <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span> <span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">文章目录</li><li class="sidebar-nav-overview" data-target="site-overview-wrap">站点概览</li></ul><section class="site-overview-wrap sidebar-panel"><div class="site-overview"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><img class="site-author-image" itemprop="image" src="/person_blogs/uploads/avatar.jpg" alt="dapeng"><p class="site-author-name" itemprop="name">dapeng</p><p class="site-description motion-element" itemprop="description">人生不止眼前的苟且，还有诗和远方的田野</p></div><nav class="site-state motion-element"><div class="site-state-item site-state-posts"><a href="/person_blogs/archives/"><span class="site-state-item-count">44</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-tags"><a href="/person_blogs/tags/index.html"><span class="site-state-item-count">37</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="feed-link motion-element"><a href="/person_blogs/atom.xml" rel="alternate"><i class="fa fa-rss"></i> RSS</a></div><div class="links-of-author motion-element"><span class="links-of-author-item"><a href="https://github.com/zhangyapeng0222" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a> </span><span class="links-of-author-item"><a href="mailto:48283450@qq.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a></span></div></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML是什么"><span class="nav-number">1.</span> <span class="nav-text">HTML是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML的产生"><span class="nav-number">1.1.</span> <span class="nav-text">HTML的产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Doctype的作用"><span class="nav-number">1.2.</span> <span class="nav-text">Doctype的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染模式"><span class="nav-number">1.3.</span> <span class="nav-text">渲染模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-版本"><span class="nav-number">1.4.</span> <span class="nav-text">HTML 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-设计思想"><span class="nav-number">1.5.</span> <span class="nav-text">HTML5 设计思想</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5-中的变化"><span class="nav-number">1.6.</span> <span class="nav-text">HTML5 中的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML5语法"><span class="nav-number">1.7.</span> <span class="nav-text">HTML5语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文本标签"><span class="nav-number">1.8.</span> <span class="nav-text">文本标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网页总体结构"><span class="nav-number">1.9.</span> <span class="nav-text">网页总体结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强调："><span class="nav-number">1.10.</span> <span class="nav-text">强调：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义与缩写："><span class="nav-number">1.11.</span> <span class="nav-text">定义与缩写：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.12.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上标和下标"><span class="nav-number">1.13.</span> <span class="nav-text">上标和下标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mark"><span class="nav-number">1.14.</span> <span class="nav-text">mark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入和删除"><span class="nav-number">1.15.</span> <span class="nav-text">插入和删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#换行控制（尽量避免）"><span class="nav-number">1.16.</span> <span class="nav-text">换行控制（尽量避免）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#div-和-span"><span class="nav-number">1.17.</span> <span class="nav-text">div 和 span</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实体（Entity）字符"><span class="nav-number">1.18.</span> <span class="nav-text">实体（Entity）字符</span></a></li></ol></li></ol></div></div></section></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2018</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">dapeng</span></div><div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div><span class="post-meta-divider">|</span><div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i></div><div id="needsharebutton-float"><span class="btn"><i class="fa fa-share-alt" aria-hidden="true"></i></span></div></div><script type="text/javascript">"[object Function]"!==Object.prototype.toString.call(window.Promise)&&(window.Promise=null)</script><script type="text/javascript" src="https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/velocity/1.2.1/velocity.ui.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js"></script><script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script><script type="text/javascript" src="/person_blogs/js/src/utils.js?v=5.1.4"></script><script type="text/javascript" src="/person_blogs/js/src/motion.js?v=5.1.4"></script><script type="text/javascript" src="/person_blogs/js/src/affix.js?v=5.1.4"></script><script type="text/javascript" src="/person_blogs/js/src/schemes/pisces.js?v=5.1.4"></script><script type="text/javascript" src="/person_blogs/js/src/scrollspy.js?v=5.1.4"></script><script type="text/javascript" src="/person_blogs/js/src/post-details.js?v=5.1.4"></script><script type="text/javascript" src="/person_blogs/js/src/bootstrap.js?v=5.1.4"></script><script type="text/javascript">!function(e,t){var n,c=e.getElementsByTagName(t)[0];"function"!=typeof LivereTower&&((n=e.createElement(t)).src="https://cdn-city.livere.com/js/embed.dist.js",n.async=!0,c.parentNode.insertBefore(n,c))}(document,"script")</script><script type="text/javascript">// Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/person_blogs/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });</script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("xb0CD6LXpsiWakv1vqqGvArr-gzGzoHsz","QY6l9v7TBktnoVFXmbUGUvkW")</script><script>function showTime(e){var t=new AV.Query(e),c=[],u=$(".leancloud_visitors");u.each(function(){c.push($(this).attr("id").trim())}),t.containedIn("url",c),t.find().done(function(e){var t=".leancloud-visitors-count";if(0!==e.length){for(var n=0;n<e.length;n++){var o=e[n],i=o.get("url"),s=o.get("time"),r=document.getElementById(i);$(r).find(t).text(s)}for(n=0;n<c.length;n++){i=c[n],r=document.getElementById(i);var l=$(r).find(t);""==l.text()&&l.text(0)}}else u.find(t).text(0)}).fail(function(e,t){console.log("Error: "+t.code+" "+t.message)})}function addCount(i){var e=$(".leancloud_visitors"),s=e.attr("id").trim(),r=e.attr("data-flag-title").trim(),t=new AV.Query(i);t.equalTo("url",s),t.find({success:function(e){if(0<e.length){var t=e[0];t.fetchWhenSave(!0),t.increment("time"),t.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to save Visitor num, with error message: "+t.message)}})}else{var n=new i,o=new AV.ACL;o.setPublicReadAccess(!0),o.setPublicWriteAccess(!0),n.setACL(o),n.set("title",r),n.set("url",s),n.set("time",1),n.save(null,{success:function(e){$(document.getElementById(s)).find(".leancloud-visitors-count").text(e.get("time"))},error:function(e,t){console.log("Failed to create")}})}},error:function(e){console.log("Error:"+e.code+" "+e.message)}})}$(function(){var e=AV.Object.extend("Counter");1==$(".leancloud_visitors").length?addCount(e):1<$(".post-title-link").length&&showTime(e)})</script><link rel="stylesheet" href="/person_blogs/lib/needsharebutton/needsharebutton.css"><script src="/person_blogs/lib/needsharebutton/needsharebutton.js"></script><script>flOptions={iconStyle:"defalut",boxForm:"vertical",position:"middleRight",networks:"Weibo,Douban,QQZone,Twitter,Facebook"},new needShareButton("#needsharebutton-float",flOptions)</script><script async>window.onload=function(){var e=document.createElement("script"),t=document.getElementsByTagName("script")[0];e.type="text/javascript",e.async=!0,e.src="/sw-register.js?v="+Date.now(),t.parentNode.insertBefore(e,t)}</script></body></html>
