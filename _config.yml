@@ -101,7 +101,7 @@ service_worker:
 
 # Live2D
 live2d:
-  enable: false
+  enable: true
   scriptFrom: local
   pluginRootPath: live2dw/
   pluginJsPath: lib/
@@ -119,7 +119,7 @@ live2d:
 
 ### 加速
 filter_optimize:
-  enable: false
+  enable: true
   # remove static resource query string
   #   - like `?v=1.0.0`
   remove_query_string: true
