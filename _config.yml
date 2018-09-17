@@ -15,7 +15,7 @@ host: fonts.useso.com
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://zhangyapeng0222.github.io/person_blogs/
-root: /
+root: /person_blogs/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
