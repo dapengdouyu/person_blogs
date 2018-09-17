@@ -27,7 +27,6 @@
     "hexo-server": "^0.2.0",
     "hexo-service-worker": "^1.0.1",
     "hexo-wordcount": "^3.0.2",
-    "live2d-widget-model-haru": "^1.0.5",
     "live2d-widget-model-hibiki": "^1.0.5",
     "shelljs": "^0.8.2"
   },
