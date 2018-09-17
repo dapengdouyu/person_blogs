@@ -15,7 +15,7 @@ host: fonts.useso.com
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://zhangyapeng0222.github.io/person_blogs/
-root: /person_blogs/
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -126,7 +126,7 @@ filter_optimize:
   # remove the surrounding comments in each of the bundled files
   remove_comments: false
   css:
-    enable: false
+    enable: true
     # bundle loaded css file into the one
     bundle: true
     # use a script block to load css elements dynamically
@@ -138,7 +138,7 @@ filter_optimize:
     excludes:
   js:
     # bundle loaded js file into the one
-    bundle: false
+    bundle: true
     excludes:
   # set the priority of this plugin,
   # lower means it will be executed first, default is 10
