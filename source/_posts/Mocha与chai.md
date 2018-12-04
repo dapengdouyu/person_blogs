@@ -24,7 +24,8 @@ npm install --save-dev mocha
 - **it**块称为"测试用例"（test case），表示一个单独的测试，是测试的最小单位。它也是一个函数，第一个参数是测试用例的名称（"1 加 1 应该等于 2"），第二个参数是一个实际执行的函数。
 
 ### chai
-Mocha本身不带断言库，所以必须先引入断言库。mocha经常和chai这个**断言库**一起配合使用
+- Mocha本身不带断言库，所以必须先引入断言库。mocha经常和chai这个**断言库**一起配合使用
+- chai支持expect语法和should语法的BDD接近自然语言的写法和常规的asset语法
 ```js
 var {expect} = require('chai');
 expect(add(1, 1)).to.be.equal(2);
@@ -54,14 +55,22 @@ mocha --watch
 --recursive
 --growl
 ```
-- `--compilers`参数指定测试脚本的转码器
+- [--require](https://github.com/mochajs/mocha/wiki/compilers-deprecation)参数指定测试脚本的转码器
 ```sh
-mocha --compilers js:babel-core/register
+mocha --require @babel/register
 ```
-注意，Babel默认不会对Iterator、Generator、Promise、Map、Set等全局对象，以及一些全局对象的方法（比如Object.assign）转码。如果你想要对这些对象转码，就要安装babel-polyfill。
+**注意**，Babel默认不会对Iterator、Generator、Promise、Map、Set等全局对象，以及一些全局对象的方法（比如Object.assign）转码。如果你想要对这些对象转码，就要安装babel-polyfill。
 然后，在你的脚本头部加上一行。
 ```js
 import 'babel-polyfill'
+```
+- Mocha默认会高亮显示超过75毫秒的测试用例，可以用-s或--slow调整这个参数。
+```sh
+$ mocha -t 5000 -s 1000 timeout.test.js
+```
+- Mocha默认每个测试用例最多执行2000毫秒，如果到时没有得到结果，就报错.需要用-t或--timeout参数，改变默认的超时设置
+```sh
+$ mocha -t 5000 timeout.test.js
 ```
 
 
@@ -89,3 +98,7 @@ describe('hooks', function() {
   // test cases
 });
 ```
+### 参考
+- [单元测试框架mocha](http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html)
+- [断言库chai](https://www.chaijs.com/)
+- [代理HTTP请求supertest](https://npmjs.com/package/supertest)

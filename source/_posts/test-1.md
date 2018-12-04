@@ -91,7 +91,7 @@ assert(parse('name=zyp&age=9').age===9,'年龄必须是9')
 #### BDD(行为驱动开发)
 - 在TDD中，我们并不能完全保证根据设计所编写的测试就是**用户**所期望的功能。
 - BDD将这一部分简单和自然化，用**自然语言**来描述，让**开发**、**测试**、**BA**以及**客户**都能在这个基础上达成一致。
-
+- 它鼓励软件项目中的开发这，QA和非技术人员之间的协作。
 ### 常用测试框架
 - [qunit](https://github.com/qunitjs/qunit) jQuery
 - [mocha](https://github.com/mochajs/mocha) 支持Node&Browser express.js
