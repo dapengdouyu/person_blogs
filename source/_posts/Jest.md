@@ -29,18 +29,6 @@ cnpm i jest -g
     "testRegex": "/test/.*.test.jsx?$"
  }
 ```
-### jest与eslint检测
-如果看了上面的代码会发现我没有引用任何类似于
-```js
-import *  from 'jest'
-```
-的代码，而那个expect是没有定义的。
-这段代码直接运行**jest**命令没有任何问题，但是eslint会检测出错，对于这种情况，我们可以再eslint配置文件**.eslintrc**中加入以下代码：
-```json
-"env": {
-    "jest": true
-  },
-```
 
 ### 运行
 ```sh
@@ -69,8 +57,37 @@ module.exports = {
     //默认值：当前目录，一般是package.json所在的目录。
     rootDir: '',
     //测试文件的类型
-    moduleFileExtensions: ['js', 'json', 'jsx', 'node']
+    moduleFileExtensions: ['js', 'json', 'jsx', 'node'],
+     // 运行测试前可执行的脚本（比如注册enzyme的兼容）
+    setupFiles: ['<rootDir>/jest.setup.js'],
+     // 运行环境下的URl
+    testURL: 'http://localhost/',
+    //转换时需忽略的文件
+    testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'], 
+    // 如果moduleNameMapper不能满足您的需求，那么可以使用Jest的transform配置选项来指定如何转换资产
+    transform: {
+    '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.css$': '<rootDir>/__test__/css-transform.js',
+  },
+  // 是否收集测试时的覆盖率信息（默认是false,同package配置的--coverage参数）
+  collectCoverage: true, 
+  // 哪些文件需要收集覆盖率信息
+  collectCoverageFrom: ['<rootDir>/src/**/*.{js,jsx,mjs}'], 
+  // 输出覆盖信息文件的目录
+  coverageDirectory: '<rootDir>/test/coverage', 
+  // 统计覆盖信息时需要忽略的文件
+  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/src/index.jsx'], 
+  moduleNameMapper: { // 需要mock处理掉的文件，比如样式文件 },
 }
+```
+关于`transfrom`的配置可以[参考](https://jestjs.io/docs/zh-Hans/tutorial-react#custom-transformers)
+### jest.setup.js
+```js
+/* eslint-disable import/no-extraneous-dependencies */
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 ```
 ### 基本用法
 和之前介绍的**mocha**和**chai**的功能很像，甚至可以兼容部分**mocha**和**chai**的语法。
@@ -248,6 +265,8 @@ module.exports = 'test-file-stub';
 ```js
 npm install --save-dev identity-obj-proxy
 ```
+### jest与webpack
+这里不多讲了，可以[参考](http://facebook.github.io/jest/docs/en/webpack.html)
 ### jest与别名
 在webpack中经常会用到别名，而jest测试时，如果文件中引用了别名会出现找不到文件的问题。
 毕竟jest测试时没有经过webpack处理
@@ -268,36 +287,17 @@ resolve: {
     }
 }
 ```
-这个和之前 mock文件和css module的问题 一样，都是使用了moduleNameMapper这个属性
-正常的测试文件
+### jest与eslint检测
+如果看了上面的代码会发现我没有引用任何类似于
 ```js
-import { get } from 'utils/client'
-
-test('fetch by get method', async () => {
-  expect.assertions(1)
-  // 测试使用了一个免费的在线 JSON API
-  const url = 'https://jsonip.com/'
-
-  const data = await get(url)
-  const { about } = data
-  expect(about).toBe('/about')
-})
+import *  from 'jest'
 ```
-对于上面异步函数的例子，我们改造成 mock 的方式:
-```js
-const funcUseGet = async url => {
-  return await get(url)
-}
-
-test('mock fetch get method', async () => {
-  const client = require('utils/client')
-  client.get = jest.fn(url => ({ mock: 'test' }))
-
-  const url = 'http://mock.test'
-  const data = await funcUseGet(url)
-
-  expect(data).toEqual({ mock: 'test' })
-})
+的代码，而那个expect是没有定义的。
+这段代码直接运行**jest**命令没有任何问题，但是eslint会检测出错，对于这种情况，我们可以再eslint配置文件**.eslintrc**中加入以下代码：
+```json
+"env": {
+    "jest": true
+  },
 ```
 
 ### jest的断言
@@ -333,6 +333,43 @@ test('compiling android goes as expected', () => {
 - Jest能操作DOM是因为内置了JSDOM
 - JSDOM是在node中模拟了DOM环境
 
+```js
+function remove(node) {
+    node.parentNode.removeChild(node);
+}
+function on(node, type, handler) {
+    node.addEventListener(type, handler);
+}
+exports.remove = remove;
+exports.on = on;
+```
+```js
+let { remove, on } = require('../src/dom');
+describe('dom', () => {
+    test('remove', () => {
+        document.body.innerHTML = '<div id="container"><span id="hello">hello</span></div>';
+        let container = document.getElementById('container');
+        expect(container.nodeName.toLocaleLowerCase()).toBe('div');
+        let hello = document.getElementById('hello');
+        expect(hello.nodeName.toLocaleLowerCase()).toBe('span');
+        remove(hello);
+        let hello2 = document.getElementById('hello');
+        expect(hello2).toBeNull();
+    })
+
+    test('on', () => {
+        document.body.innerHTML = '<div id="container"><button id="clickMe">click</button></div>';
+        let clickMe = document.getElementById('clickMe');
+        on(clickMe, 'click', () => {
+            clickMe.innerHTML = 'clicked';
+        });
+        clickMe.click();
+        expect(clickMe.innerHTML).toBe('clicked');
+
+    })
+});
+```
+
 ### 代码覆盖率
 - line coverage 行覆盖率
 - function coverage 函数覆盖率
@@ -345,11 +382,39 @@ npx jest --coverage
 Jest 测试提供了一些测试的生命周期 API，可以辅助我们在每个 `case` 的开始和结束做一些处理。 这样，在进行一些和数据相关的测试时，可以在测试前准备一些数据，在测试后，清理测试数据。
 
 4 个主要的生命周期函数：
+
+默认情况下，**before** 和 **after** 的块可以应用到**文件中**的每个测试。 此外可以通过 **describe** 块来将测试分组。 当 **before **和**after** 的块在**describe** 块内部时，则其只适用于该 **describe** 块内的测试。
 - afterAll(fn, timeout): 当前文件中的所有测试执行完成后执行 fn, 如果 fn 是 promise，jest 会等待 timeout 毫秒，默认 5000
 - afterEach(fn, timeout): 每个 test 执行完后执行 fn，timeout 含义同上
 - beforeAll(fn, timeout): 同 afterAll，不同之处在于在所有测试开始前执行
 - beforeEach(fn, timeout): 同 afterEach，不同之处在于在每个测试开始前执行
 
+```js
+beforeAll(() => console.log('1 - beforeAll'));
+afterAll(() => console.log('1 - afterAll'));
+beforeEach(() => console.log('1 - beforeEach'));
+afterEach(() => console.log('1 - afterEach'));
+test('', () => console.log('1 - test'));
+describe('Scoped / Nested block', () => {
+  beforeAll(() => console.log('2 - beforeAll'));
+  afterAll(() => console.log('2 - afterAll'));
+  beforeEach(() => console.log('2 - beforeEach'));
+  afterEach(() => console.log('2 - afterEach'));
+  test('', () => console.log('2 - test'));
+});
+// 1 - beforeAll
+// 1 - beforeEach
+// 1 - test
+// 1 - afterEach
+// 2 - beforeAll
+// 1 - beforeEach
+// 2 - beforeEach
+// 2 - test
+// 2 - afterEach
+// 1 - afterEach
+// 2 - afterAll
+// 1 - afterAll
+```
 ```js
 BeforeAll(() => {
   console.log('before all tests to excute !')
@@ -375,6 +440,85 @@ Test('test lifecycle 03', () => {
   expect(2 + 2).toBe(4)
 })
 ```
+
+### 快照
+所谓**snapshot**，即快照也。通常涉及UI的自动化测试，思路是把某一时刻的标准状态拍个快照，在测试回归的时候进行pixel to pixel的对比。但Jest对React组件的快照则不同，其实是把一个组件给序列化成纯文本， 纯文本的比较，这个真是简单又高效呀。对于一个React组件而言， 传入相同的props，我们是期望得到相同的输出， 这样子一来，通过构造不同的props, 我们即有了不同的测试用例。
+
+理想状态中，组件若是无**内部状态变化**，测试用例覆盖率应该可以达到**100%**了。当然，仅仅是理想。
+
+提高代码测试覆盖率
+
+```jsx
+// Link.react.js
+import React from 'react';
+
+const STATUS = {
+  HOVERED: 'hovered',
+  NORMAL: 'normal',
+};
+
+export default class Link extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this._onMouseEnter = this._onMouseEnter.bind(this);
+    this._onMouseLeave = this._onMouseLeave.bind(this);
+
+    this.state = {
+      class: STATUS.NORMAL,
+    };
+  }
+
+  _onMouseEnter() {
+    this.setState({class: STATUS.HOVERED});
+  }
+
+  _onMouseLeave() {
+    this.setState({class: STATUS.NORMAL});
+  }
+
+  render() {
+    return (
+      <a
+        className={this.state.class}
+        href={this.props.page || '#'}
+        onMouseEnter={this._onMouseEnter}
+        onMouseLeave={this._onMouseLeave}>
+        {this.props.children}
+      </a>
+    );
+  }
+```
+```js
+// Link.react-test.js
+import React from 'react';
+import Link from '../Link.react';
+import renderer from 'react-test-renderer';
+
+it('renders correctly', () => {
+  const tree = renderer.create(
+    <Link page="http://www.facebook.com">Facebook</Link>
+  ).toJSON();
+  expect(tree).toMatchSnapshot();
+});
+```
+第一次跑的时候，就会生成一个快照文件，在`__snapshots__`目录下:
+```js
+exports[`renders correctly 1`] = `
+<a
+  className="normal"
+  href="http://www.facebook.com"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  Facebook
+</a>
+`;
+```
+在之后的`toMatchSnapshot()`调用就会与之比较，如有不同，则是用例失败，会打印出具体差异：
+![https://facebook.github.io/jest/img/content/failedSnapshotTest.png](https://facebook.github.io/jest/img/content/failedSnapshotTest.png)
+
 
 ### 附录
 #### glob
@@ -412,3 +556,6 @@ gulp内部使用了**node-glob**模块来实现其文件匹配功能。我们可
 - [前端单元测试-jest](https://kokokele.github.io/keleblog/#/posts/3)
 - [在VS Code中调试Jest单元测试](https://segmentfault.com/a/1190000011852541)
 - [Jest基本使用方法以及mock技巧介绍](https://blog.csdn.net/TMQ1225/article/details/81133855)
+- [初尝 Jest 单元测试](http://imweb.io/topic/592aab6eff03ef1a4ef15c51)
+- [React 16 Jest快照测试](https://www.gowhich.com/blog/853)
+- [使用 JEST 進行前端單元測試](https://blog.patw.me/archives/1310/write-frontend-unit-tests-with-jest/)
