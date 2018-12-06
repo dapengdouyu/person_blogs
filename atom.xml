@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangyapeng0222.github.io/person_blogs/"/>
-  <updated>2018-12-06T02:56:53.022Z</updated>
+  <updated>2018-12-06T03:05:51.308Z</updated>
   <id>https://zhangyapeng0222.github.io/person_blogs/</id>
   
   <author>
@@ -21,9 +21,16 @@
     <link href="https://zhangyapeng0222.github.io/person_blogs/2018/12/06/cypress/"/>
     <id>https://zhangyapeng0222.github.io/person_blogs/2018/12/06/cypress/</id>
     <published>2018-12-06T02:56:09.000Z</published>
-    <updated>2018-12-06T02:56:53.022Z</updated>
+    <updated>2018-12-06T03:05:51.308Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="cypress-进行-e2e-测试之理论"><a href="#cypress-进行-e2e-测试之理论" class="headerlink" title="cypress 进行 e2e 测试之理论"></a>cypress 进行 e2e 测试之理论</h2><h3 id="目前E2E测试工具有哪些？"><a href="#目前E2E测试工具有哪些？" class="headerlink" title="目前E2E测试工具有哪些？"></a>目前E2E测试工具有哪些？</h3><table><thead><tr><th>项目</th><th>Web</th><th>Star</th></tr></thead><tbody><tr><td>puppeteer</td><td>Chromium (~170Mb Mac, ~282Mb Linux, ~280Mb Win)</td><td>31906</td></tr><tr><td>nightmare</td><td>Electron</td><td>15502</td></tr><tr><td>nightwatch</td><td>WebDriver</td><td>8135</td></tr><tr><td>protractor</td><td>selenium</td><td>7532</td></tr><tr><td>casperjs</td><td>PhantomJS</td><td>7180</td></tr><tr><td>cypress</td><td>Electron</td><td>5303</td></tr><tr><td>Zombie</td><td>不需要</td><td>4880</td></tr><tr><td>testcafe</td><td>不需要</td><td>4645</td></tr><tr><td>CodeceptJS</td><td>webdriverio</td><td>1665</td></tr></tbody></table>]]></content>
     
     <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;cypress-进行-e2e-测试之理论&quot;&gt;&lt;a href=&quot;#cypress-进行-e2e-测试之理论&quot; class=&quot;headerlink&quot; title=&quot;cypress 进行 e2e 测试之理论&quot;&gt;&lt;/a&gt;cypress 进行 e2e 测试之理论&lt;/h2&gt;&lt;
+      
     
     </summary>
     
