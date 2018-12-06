@@ -9,8 +9,8 @@ tags: ["test","e2e","cypress"]
 ### 目前E2E测试工具有哪些？
 |项目|	Web	|Star|
 |----|----|----|
-|puppeteer|	Chromium (~170Mb Mac, ~282Mb Linux, ~280Mb Win)	|31906|
-|nightmare|	Electron|	15502|
+|[puppeteer](https://github.com/GoogleChrome/puppeteer)|	Chromium (~170Mb Mac, ~282Mb Linux, ~280Mb Win)	|31906|
+|[nightmare](https://github.com/segmentio/nightmare)|	Electron|	15502|
 |nightwatch|	WebDriver	|8135|
 |protractor|	selenium	|7532|
 |casperjs|	PhantomJS	|7180|
