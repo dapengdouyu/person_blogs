@@ -17,7 +17,7 @@ e2e 测试端对端测试的简称, e2e 即为end to end。
 
 最终选择了**Cypress**，主要是觉得**开箱即用**，文档比较清晰美观，语法用起来比较舒服，最重要的一点是测试跑在 **Chrome** 的标签页里，和平时开发没什么区别。这种情况下其实很适合开发时模拟各种场景，比如新增一个接口，约定好了接口定义但是接口还没好，就可以利用 **Cypress** 来模拟请求开发了。一定程度上也可以实现 **mock** 的功能。同样，测试 **fail** 了也可以直接调试。
 
-|项目|	Web	|Star|
+|项目|	Web	|Star |
 |----|----|----|
 |[puppeteer](https://github.com/GoogleChrome/puppeteer)|	Chromium (~170Mb Mac, ~282Mb Linux, ~280Mb Win)	|31906|
 |[nightmare](https://github.com/segmentio/nightmare)|	Electron|	15502|
@@ -374,6 +374,12 @@ describe('test search page', () => {
     });
 });
 ```
+
+### cy.request 请求数据，类似ajax
+- [network-requests](https://docs.cypress.io/guides/guides/network-requests.html#Testing-Strategies)
+- [assertions](https://docs.cypress.io/guides/references/assertions.html#Chai) 
+- [recipes](https://docs.cypress.io/examples/examples/recipes.html#Node-Modules)
+- [code completion](https://docs.cypress.io/guides/tooling/intelligent-code-completion.html) 
 
 ## 总结`Cypress`写测试的基本思路
 - 确定是否需要拦截请求，用 **cy.route** 修改请求，按照设计好的测试用例设定 **response**。
