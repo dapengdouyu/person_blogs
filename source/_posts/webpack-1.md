@@ -124,7 +124,7 @@ module: {
     },
 ```
 
-##### 1.3 use+loader
+##### 1.3 useloader
 ```js
 // css-loader用来处理css中url的路径
 // style-loader可以把css文件变成style标签插入head中
@@ -150,6 +150,146 @@ module: {
 #### 支持加载css文件
 - [css-loader](https://www.npmjs.com/package/css-loader)
 - [style-loader](https://www.npmjs.com/package/style-loader)
+
+#### 支持图片
+```sh
+npm i file-loader url-loader -D
+```
+- [file-loader](http://npmjs.com/package/file-loader) 解决CSS等文件中的引入图片路径问题
+- [url-loader](https://www.npmjs.com/package/url-loader) 当图片小于limit的时候会把图片BASE64编码，大于limit参数的时候还是使用file-loader 进行拷贝
+
+##### js中引入图片
+```js
+let logo=require('./images/logo.png');
+let img=new Image();
+img.src=logo;
+document.body.appendChild(img)
+```
+
+```js
+{
+  test:/\.(jpg|png|bmp|gif|svg|ttf|woff|woff2|eot)/,
+    use:[
+    {
+       loader:'url-loader',
+       options:{limit:4096}
+    }
+  ]
+}
+```
+##### 在CSS中引入图片
+```css
+.logo{
+    width:355px;
+    height:133px;
+    background-image: url(./images/logo.png);
+    background-size: cover;
+}
+```
+#####  HTML 
+```html
+<div class="logo"></div>
+```
+
+#### 分离CSS 
+因为CSS的下载和JS可以**并行**,当一个HTML文件很大的时候，我们可以把CSS单独提取出来加载
+
+- [mini-css-extract-plugin](https://github.com/webpack-contrib/mini-css-extract-plugin)
+- filename 打包入口文件
+- chunkFilename 用来打包`import('module')`方法中引入的模块
+
+```sh
+npm install --save-dev mini-css-extract-plugin
+```
+配置webpack.config.js
+```js
+plugins: [
+       //参数类似于webpackOptions.output
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+            chunkFilename:'[id].css'
+        }),
+]
+
+{
+                test: /\.css/,
+                include: path.resolve(__dirname,'src'),
+                exclude: /node_modules/,
+                use: [{
+                    loader: MiniCssExtractPlugin.loader
+                },'css-loader']
+}
+```
+#####  压缩JS和CSS
+```sh
+npm i uglifyjs-webpack-plugin optimize-css-assets-webpack-plugin -D
+```
+
+```js
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+module.exports = {
+    mode: 'development',
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,//启动缓存
+                parallel: true,//启动并行压缩
+                //如果为true的话，可以获得sourcemap
+                sourceMap: true // set to true if you want JS source maps
+            }),
+            //压缩css资源的
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
+}
+```
+##### css和image存放单独目录
+- **outputPath** 输出路径
+- **publicPath**指定的是构建后在html里的路径
+
+```js
+output: {
+        path: path.resolve(__dirname,'dist'),
+        filename: 'bundle.js',
+        publicPath:'/'
+    },
+{
+  test:/\.(jpg|jpeg|png|bmp|gif|svg|ttf|woff|woff2|eot)/,
+  use:[
+        {
+          loader:'url-loader',
+          options:{
+              limit: 4096,
+              outputPath: 'images',
+              publicPath:'/images'
+          }
+        }
+     ]
+}
+
+plugins: [
+        new MiniCssExtractPlugin({
+           filename: 'css/[name].css',
+            chunkFilename:'css/[id].css'
+        }),
+]
+```
+##### 在HTML中使用图片
+```sh
+npm i html-withimg-loader -D
+```
+index.html
+```html
+<img src="./images/logo.png"/>
+```
+webpack.config.js
+```js
+{
+    test: /\.(html|htm)$/,
+    use: 'html-withimg-loader'
+}
+```
 
 #### 编译less 和 sass
 安装less和sass
@@ -386,6 +526,18 @@ npm i html-webpack-plugin -D
 - **hash**:引入产出资源的时候加上查询参数，值为哈希避免缓存
 - **template**:模版路径
 
+```js
+plugins: [
+        new HtmlWebpackPlugin({
+         minify: {
+            removeAttributeQuotes:true
+        },
+        hash: true,
+        template: './src/index.html',
+        filename:'index.html'
+    })]
+```
+
 #### 添加商标
 ```js
 new webpack.BannerPlugin('珠峰培训')
@@ -416,7 +568,7 @@ new CleanWebpackPlugin([path.resolve(__dirname,'dist')])
 new webpack.DefinePlugin({
     PRODUCTION: JSON.stringify(true),
     VERSION: "1",
-    EXPRESSION: "1+2",
+    EXPRESSION: "12",
     COPYRIGHT: {
         AUTHOR: JSON.stringify("珠峰培训")
     }
@@ -577,12 +729,15 @@ cross-env NODE_ENV=development webpack --mode=development
 #### 不修改路径
 请求到 **/api/users** 现在会被代理到请求 **http://localhost:3000/api/users**。
 ```js
+// api开头的接口代理到3000端口
 proxy: {
   "/api": 'http://localhost:3000'
 }
 ```
 ####  修改路径 
 ```js
+// api开头的接口代理到3000端口
+// api/users===>users
 proxy: {
     "/api": {
        target: 'http://localhost:3000',
@@ -618,4 +773,215 @@ app.use(webpackDevMiddleware(compiler, {}));
 app.listen(3000);
 ```
 - **webpack-dev-server** 的好处是相对简单，直接安装依赖后执行命令即可
-- 而使用**webpack-dev-middleware**的好处是可以在既有的**Express** 代码基础上快速添加**webpack-dev-server** 的功能，同时利用 **Express** 来根据需要添加更多的功能，如 mock 服务、代理 API 请求等
+- 而使用**webpack-dev-middleware**的好处是可以在既有的**Express** 代码基础上快速添加**webpack-dev-server** 的功能，同时利用 **Express** 来根据需要添加更多的功能，如 **mock** 服务、代理 **API** 请求等
+
+### resolve解析
+####  extensions
+指定**extension**之后可以不用在**require**或是**import**的时候加**文件扩展名**,会依次尝试添加扩展名进行匹配
+```js
+resolve: {
+  extensions: [".js",".jsx",".json",".css"]
+},
+```
+####  alias
+- **配置别名**可以加快webpack查找模块的速度
+- 每当引入**bootstrap**模块的时候，它会直接引入**bootstrap**,而不需要从**node_modules**文件夹中按模块的查找规则查找
+
+```js
+const bootstrap = path.resolve(__dirname,'node_modules/_bootstrap@3.3.7@bootstrap/dist/css/bootstrap.css');
+resolve: {
+    alias:{
+       "bootstrap":bootstrap
+    }
+},
+```
+#### modules
+- 对于直接声明依赖名的模块（如 **react** ），**webpack** 会类似 **Node.js** 一样进行路径搜索，搜索**node_modules**目录
+- 这个目录就是使用**resolve.modules**字段进行配置的 默认配置
+
+```js
+resolve: {
+modules: ['node_modules'],
+}
+```
+如果可以确定项目内所有的第三方依赖模块都是在项目根目录下的 **node_modules** 中的话
+```js
+resolve: {
+modules: [path.resolve(__dirname, 'node_modules')],
+}
+```
+#### mainFields
+默认情况下**package.json** 文件则按照文件中 **main** 字段的文件名来查找文件
+```js
+resolve: {
+  // 配置 target === "web" 或者 target === "webworker" 时 mainFields 默认值是：
+  mainFields: ['browser', 'module', 'main'],
+  // target 的值为其他时，mainFields 默认值为：
+  mainFields: ["module", "main"],
+}
+```
+#### mainFiles
+当目录下没有 **package.json** 文件时，我们说会默认使用目录下的 **index.js** 这个文件，其实这个也是可以配置的
+```js
+resolve: {
+  mainFiles: ['index'], // 你可以添加其他默认使用的文件名
+},
+```
+####  resolveLoader
+**resolve.resolveLoader**用于配置解析 **loader** 时的 **resolve** 配置,默认的配置：
+```js
+module.exports = {
+  resolveLoader: {
+    modules: [ 'node_modules' ],
+    extensions: [ '.js', '.json' ],
+    mainFields: [ 'loader', 'main' ]
+  }
+};
+```
+-------
+### noParse
+- **module.noParse** 字段，可以用于配置哪些模块文件的内容不需要被**loaders**解析
+- 不需要解析依赖（即无依赖） 的第三方大型类库等，可以通过这个字段来配置，以提高整体的构建速度
+- 使用 **noParse** 进行忽略的**模块文件中**不能使用 **import**、**require**、**define** 等导入机制,因为这些模块加载**并不会被解析**，所以就会报错
+
+```js
+module.exports = {
+// ...
+module: {
+  noParse: /jquery|lodash/, // 正则表达式
+  // 或者使用函数
+  noParse(content) {
+    return /jquery|lodash/.test(content)
+  },
+}
+}
+```
+
+### watch 
+当代码发生修改后可以自动**重新编译**
+
+- webpack定时获取文件的更新时间，并跟上次保存的时间进行比对，不一致就表示发生了变化,**poll**就用来配置每秒问多少次
+- 当检测文件不再发生变化，会先缓存起来，等待一段时间后之后再通知监听者，这个等待时间通过**aggregateTimeout**配置
+- **webpack**只会监听**entry**依赖的文件
+- 我们需要尽可能减少需要监听的文件数量和检查频率，当然频率的降低会导致灵敏度下降
+```js
+watch: true,
+watchOptions: {
+    ignored: /node_modules/, //忽略不用监听变更的目录
+    poll:1000, //每秒询问的文件变更的次数
+    aggregateTimeout: 500, //防止重复保存频繁重新编译,500毫秒内重复保存不打包
+}
+```
+------------------------
+### 区分环境变量
+- 日常的前端开发工作中，一般都会有**两套**构建环境
+- 一套开发时使用，构建结果用于本地开发调试，不进行**代码压缩**，打印 **debug** 信息，包含 **sourcemap** 文件
+- 一套构建后的结果是直接应用于线上的，即代码都是压缩后，运行时不打印 **debug** 信息，静态文件不包括 **sourcemap**
+- webpack 4.x 版本引入了 **mode** 的概念
+- 当你指定使用 **production mode** 时，默认会启用各种性能优化的功能，包括**构建结果优化**以及 **webpack 运行性能优化**
+- 而如果是 **development mode** 的话，则会开启 **debug** 工具，运行时打印详细的错误信息，以及更加快速的增量编译构建
+
+#### 环境差异
+- 生产环境
+    - 可能需要分离 **CSS** 成单独的文件，以便多个页面共享同一个 **CSS** 文件
+    - 需要压缩**HTML/CSS/JS** 代码
+    - 需要**压缩图片**
+- 开发环境
+    - 需要生成 **sourcemap** 文件
+    - 需要打印 **debug** 信息
+    - 需要 **live reload** 或者 **hot reload** 的功能...
+
+#### 获取mode参数
+```sh
+npm install --save-dev optimize-css-assets-webpack-plugin
+```
+
+```js
+const UglifyJSPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+module.exports=(env,argv) => ({
+    optimization: {
+        minimizer: argv.mode == 'production'?[            
+            new UglifyJSplugin({
+                  cache: true,//启用缓存
+                  parallel: true,// 使用多进程运行改进编译速度
+                  sourceMap:true//生成sourceMap映射文件
+            }),
+            new OptimizeCssAssetsWebpackPlugin({})
+        ]:[]
+    }
+})
+```
+
+#### 封装log方法
+**webpack**时传递的 **mode** 参数，是可以在我们的应用代码运行时，通过 **process.env.NODE_ENV** 这个变量获取
+```js
+export default function log(...args) {
+    if (process.env.NODE_ENV == 'development') {
+        console.log.apply(console,args);
+    }
+}
+```
+#### 拆分配置
+可以把 **webpack** 的配置按照不同的环境拆分成多个文件，运行时直接根据环境变量加载对应的配置即可
+
+- webpack.base.js：基础部分，即多个文件中共享的配置
+- webpack.development.js：开发环境使用的配置
+- webpack.production.js：生产环境使用的配置
+- webpack.test.js：测试环境使用的配置...
+- [webpack-merge](https://github.com/survivejs/webpack-merge)
+
+```js
+const { smart } = require('webpack-merge')
+const webpack = require('webpack')
+const base = require('./webpack.base.js')
+module.exports = smart(base, {
+  module: {
+    rules: [],
+  }
+})
+```
+
+#### 多入口
+有时候我们的页面可以不止一个HTML页面，会有多个页面，所以就需要**多入口**
+```js
+const path=require('path');
+const HtmlWebpackPlugin=require('html-webpack-plugin');
+module.exports={
+    entry: {
+        index: './src/index.js',
+        login: './src/login.js'
+    },
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].[hash].js',
+        publicPath: '/'
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            minify: {
+                removeAttributeQuotes: true
+            },
+            hash: true,
+            template: './src/index.html',
+            chunks: ['index'],
+            filename: 'index.html'
+        }),
+        new HtmlWebpackPlugin({
+            minify: {
+                removeAttributeQuotes: true
+            },
+            hash: true,
+            chunks: ['login'],
+            template: './src/login.html',
+            filename: 'login.html'
+        })
+    ],
+}
+```
+-----------------
+### 参考文档
+- [webpack](https://webpack.docschina.org/configuration/resolve/)
+- [webpackdemo](http://www.zhufengpeixun.cn/plan/html/26.webpack-1-basic.html)
+- [理解webpack之process.env.NODE_ENV详解](https://www.cnblogs.com/tugenhua0707/p/9780621.html)
+- [webpack4之基础篇](https://juejin.im/post/5ab79fa75188255582525400)
