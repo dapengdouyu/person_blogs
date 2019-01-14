@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zhangyapeng0222.github.io/person_blogs/"/>
-  <updated>2019-01-11T09:38:35.467Z</updated>
+  <updated>2019-01-14T06:59:48.121Z</updated>
   <id>https://zhangyapeng0222.github.io/person_blogs/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>webpack-tapable</title>
+    <link href="https://zhangyapeng0222.github.io/person_blogs/2019/01/14/webpack-tapable/"/>
+    <id>https://zhangyapeng0222.github.io/person_blogs/2019/01/14/webpack-tapable/</id>
+    <published>2019-01-14T06:50:58.000Z</published>
+    <updated>2019-01-14T06:59:48.121Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="webpack的插件机制"><a href="#webpack的插件机制" class="headerlink" title="webpack的插件机制"></a>webpack的插件机制</h2><p>webpack实现插件机制的大体方式是:</p><ul><li><strong>创建</strong> - webpack在其内部对象上创建各种钩子；</li><li><strong>注册</strong> - 插件将自己的方法注册到对应钩子上，交给webpack；</li><li><strong>调用</strong> - webpack编译过程中，会适时地触发相应钩子，因此也就触发了插件的方法</li></ul><h2 id="tapable"><a href="#tapable" class="headerlink" title="tapable"></a>tapable</h2><p><strong>Webpack</strong>本质上是一种<code>事件流</code>的机制，它的工作流程就是将各个插件串联起来，而实现这一切的核心就是<strong>Tapable</strong>，<strong>webpack</strong>中最核心的负责<code>编译</code>的<strong>Compiler</strong>和负责<code>创建</code><strong>bundle</strong>的<strong>Compilation</strong>都是Tapable的实例</p><h2 id="tapable用法"><a href="#tapable用法" class="headerlink" title="tapable用法"></a>tapable用法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;</span><br><span class="line">    SyncHook,</span><br><span class="line">    SyncBailHook,</span><br><span class="line">    SyncWaterfallHook,</span><br><span class="line">    SyncLoopHook,</span><br><span class="line">    AsyncParallelHook,</span><br><span class="line">    AsyncParallelBailHook,</span><br><span class="line">    AsyncSeriesHook,</span><br><span class="line">    AsyncSeriesBailHook,</span><br><span class="line">    AsyncSeriesWaterfallHook</span><br><span class="line"> &#125; = <span class="built_in">require</span>(<span class="string">"tapable"</span>);</span><br></pre></td></tr></table></figure><p><img src="http://b.zhangyapeng.club/tapable%20(1" alt="tapable (1)-2019114145412">-2019114145412.png)</p><p>看起来起来功能和 <code>EventEmit</code> 类似，先注册事件，然后触发事件。不过 <code>Tapable</code> 的功能要比 <code>EventEmit</code> 强大。从官方介绍中，可以看到 <code>Tapable</code> 提供了很多类型的 <code>Hook</code>，分为<code>同步</code>和<code>异步</code>两个大类(异步中又区分异步<code>并行</code>和异步<code>串行</code>)，而根据事件执行的终止条件的不同，由衍生出 <code>Bail</code>/<code>Waterfall</code>/<code>Loop</code> 类型。</p><p><img src="http://b.zhangyapeng.club/167f458ac2b1e527-2019114145946.webp" alt="167f458ac2b1e527-2019114145946"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;webpack的插件机制&quot;&gt;&lt;a href=&quot;#webpack的插件机制&quot; class=&quot;headerlink&quot; title=&quot;webpack的插件机制&quot;&gt;&lt;/a&gt;webpack的插件机制&lt;/h2&gt;&lt;p&gt;webpack实现插件机制的大体方式是:&lt;/p&gt;
+&lt;ul&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="webpack" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/webpack/"/>
+    
+      <category term="tapable" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/tapable/"/>
+    
+  </entry>
   
   <entry>
     <title>webpack-bundle-源码</title>
@@ -509,37 +536,6 @@
       <category term="css" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/css/"/>
     
       <category term="css工程化" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/css%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>css效果</title>
-    <link href="https://zhangyapeng0222.github.io/person_blogs/2018/07/10/css%E6%95%88%E6%9E%9C/"/>
-    <id>https://zhangyapeng0222.github.io/person_blogs/2018/07/10/css效果/</id>
-    <published>2018-07-10T03:03:53.000Z</published>
-    <updated>2018-09-05T06:30:33.746Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="效果属性"><a href="#效果属性" class="headerlink" title="效果属性"></a>效果属性</h3><ul><li>这个效果怎么实现？</li><li>css最出彩的部分</li><li>box-shadow</li><li>text-shadow</li><li>border-radius</li><li>background</li><li>clip-path</li></ul><h3 id="box-shadow"><a href="#box-shadow" class="headerlink" title="box-shadow"></a>box-shadow</h3><ul><li>营造层次感(立体感)</li><li>充当没有宽度的边框</li><li>特殊效果</li><li>相当于元素的复制,可以制作一个div画出炫酷的效果<br><img src="box-shadow.png" alt="box-shadow"><h3 id="text-shadow"><a href="#text-shadow" class="headerlink" title="text-shadow"></a>text-shadow</h3></li><li>立体感 </li><li>印刷品质感</li></ul><h3 id="border-radius"><a href="#border-radius" class="headerlink" title="border-radius"></a>border-radius</h3><ul><li>圆角矩形</li><li>圆形</li><li>半圆/扇形</li><li>一些奇怪的角角</li></ul><h3 id="background"><a href="#background" class="headerlink" title="background"></a>background</h3><ul><li>纹理、图案</li><li>渐变</li><li>雪碧图动画</li><li>背景图尺寸适应</li></ul><h3 id="clip-path"><a href="#clip-path" class="headerlink" title="clip-path"></a>clip-path</h3><ul><li>按路径对容器进行裁剪</li><li>常见几何图形</li><li>自定义路径</li><li>原容器的大小不变,可以做容器内动画</li></ul><h3 id="3d-变换"><a href="#3d-变换" class="headerlink" title="3d 变换"></a>3d 变换</h3><ul><li>变换 transform<br><img src="transform.jpg" alt="transform"></li><li>在3d空间中进行变换<br><img src="3d.jpg" alt="3d"></li></ul><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul><li>如何用一个div画xxx<ul><li>box-shadow无限投影</li><li>::before</li><li>::after</li></ul></li><li>如何产生不占空间的边框<ul><li>outline</li><li>box-shadow</li></ul></li><li>如何实现圆形元素(头像)<ul><li>border-radius:50%;</li></ul></li><li>如何实现ios图标的圆角<br><img src="svg.jpg" alt="clip-path"><ul><li>clip-path:(svg)</li></ul></li><li>如何实现半圆、扇形等图形<ul><li>border-radius 组合：<ul><li>有无边框</li><li>边框粗细</li><li>圆角半径</li></ul></li></ul></li><li>如何实现背景图居中显示/不重复/改变大小<ul><li>background-position</li><li>background-repeat</li><li>background-size(cover/contain)</li></ul></li><li>如何平移/放大一个元素<ul><li>transform:translateX(100px)</li><li>transform:scale(2)</li></ul></li><li>如何实现3D效果<ul><li>perspective:500px;</li><li>transform-style:preserve-3d</li><li>transform:translate rotate…</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;效果属性&quot;&gt;&lt;a href=&quot;#效果属性&quot; class=&quot;headerlink&quot; title=&quot;效果属性&quot;&gt;&lt;/a&gt;效果属性&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;这个效果怎么实现？&lt;/li&gt;
-&lt;li&gt;css最出彩的部分&lt;/li&gt;
-&lt;li&gt;box-shadow&lt;/li&gt;
-&lt;l
-      
-    
-    </summary>
-    
-    
-      <category term="前端基础" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="css" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/css/"/>
-    
-      <category term="css效果" scheme="https://zhangyapeng0222.github.io/person_blogs/tags/css%E6%95%88%E6%9E%9C/"/>
     
   </entry>
   
