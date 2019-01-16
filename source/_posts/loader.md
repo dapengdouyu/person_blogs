@@ -7,7 +7,7 @@ tags: ['webpack','loader']
 ## loader运行的总体流程(一个函数)
 ![loader-2019115113541](http://b.zhangyapeng.club/loader-2019115113541.jpg)
 ## loader配置
-`loader`是导出为一个`函数`的node模块。该函数在`loader`转换资源的时候调用。给定的函数将调用`loader API`，并通过`this`上下文访问。
+`loader`是导出为一个`函数`的node模块。该函数在`loader`转换资源的时候调用。给定的函数将调用`loader API`(loaderContext)，并通过`this`上下文访问。
 ###  匹配(test)单个 loader
 匹配(test)单个 `loader`，你可以简单通过在 **rule** 对象设置 `path.resolve` 指向这个本地文件
 ```js
@@ -142,7 +142,7 @@ module.exports = function(source) {
   return;
 };
 ```
-完整格式
+完整格式(`见NormalModule.js---->runLoaders`)
 ```js
 this.callback(
     // 当无法转换原内容时，给 Webpack 返回一个 Error
