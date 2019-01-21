@@ -212,7 +212,661 @@ module.exports = function(source) {
 |loader-utils.interpolateName|	Interpolates a filename template using multiple placeholders and/or a regular expression. The template and regular expression are set as query params called name and regExp on the current loader's context. 使用多个占位符或一个正则表达式转换一个文件名的模块。这个模板和正则表达式被设置为查询参数，在当前loader的上下文中被称为name或者regExp|
 
 
+## loader实战
+--------------------
+- loader-utils
+- schema-utils
+- this.async
+- this.cacheable
+- getOptions
+- validateOptions
+- addDependency
 
+----------------
+### babel-loader
+- [babel-core](https://babeljs.io/docs/en/babel-core/)
+- [babel-loader](https://github.com/babel/babel-loader/blob/master/src/index.js)
+- [babel-plugin-transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx/)
+
+- this.request=`/loaders/babel-loader.js!/src/index.js'`
+- this.userRequest = `/src/index.js`
+- this.rawRequest = `./src/index.js`
+- this.resourcePath = `/src/index.js`
+
+```js
+const babel=require('babel-core');
+const path=require('path');
+
+module.exports=function (source) {
+    const options = {
+        presets: ['env'],
+        sourceMap: true,
+        filename:this.request.split('/').pop()
+    }
+    let result=babel.transform(source,options);
+    return this.callback(null,result.code,result.map);
+}
+```
+```js
+resolveLoader: {
+    alias: {
+      "babel-loader": resolve('./build/babel-loader.js')
+    }
+},
+```
+### BannerLoader
+```js
+const loaderUtils = require('loader-utils');
+const validateOptions = require('schema-utils');
+const fs = require('fs');
+function loader(source) {
+    //把loader改为异步,任务完成后需要手工执行callback
+    let cb = this.async();
+    //启用loader缓存
+    this.cacheable && this.cacheable();
+    //用来验证options的合法性
+    let schema = { 
+        type: 'object',
+        properties: {
+            filename: {
+                type: 'string'
+            },
+            text: {
+                type: 'string'
+            }
+        }
+    }
+    //通过工具方法获取options
+    let options = loaderUtils.getOptions(this);
+    //用来验证options的合法性
+    validateOptions(schema, options, 'Banner-Loader');
+    let { text, filename } = options;
+    if (text) {
+        cb(null, text + source);
+    } else if (filename) {
+        fs.readFile(filename, 'utf8', (err, text) => {
+            cb(err, text + source);
+        });
+    }
+}
+
+module.exports = loader;
+```
+`banner.js`
+```js
+/*zfpx*/
+```
+```js
+options:{
+  filename:"./src/loaders/banner.js"
+}
+```
+## pitch
+>The loaders are called from right to left. But in some cases loaders do not care about the results of the previous loader or the resource. They only care for metadata. The pitch method on the loaders is called from left to right before the loaders are called. If a loader delivers a result in the pitch method the process turns around and skips the remaining loaders, continuing with the calls to the more left loaders. data can be passed between pitch and normal call.
+
+>In the complex case, when multiple loaders are chained, only the last loader gets the resource file and only the first loader is expected to give back one or two values (JavaScript and SourceMap). Values that any other loader give back are passed to the previous loader.
+
+- 比如a!b!c!module, 正常调用顺序应该是c、b、a，但是真正调用顺序是 a(pitch)、b(pitch)、c(pitch)、c、b、a,如果其中任何一个pitching loader返回了值就相当于在它以及它右边的loader已经执行完毕
+- 比如如果b返回了字符串"result b", 接下来只有a会被系统执行，且a的loader收到的参数是result b
+- loader根据返回值可以分为两种，一种是返回js代码（一个module的代码，含有类似module.export语句）的loader，还有不能作为最左边loader的其他loader
+- 有时候我们想把两个第一种loader chain起来，比如style-loader!css-loader! 问题是css-loader的返回值是一串js代码，如果按正常方式写style-loader的参数就是一串代码字符串
+- 为了解决这种问题，我们需要在style-loader里执行require(css-loader!resouce)
+
+### pitch与loader本身方法的执行顺序图
+```
+|- a-loader `pitch`
+  |- b-loader `pitch`
+    |- c-loader `pitch`
+      |- requested module is picked up as a dependency
+    |- c-loader normal execution
+  |- b-loader normal execution
+|- a-loader normal execution
+```
+
+### log-loader1.js
+```js
+//source就是接收到的源文件的内容
+let loader = function (source, sourceMaps, extra) {
+    let cb = this.async();
+    console.log('loader1');
+    cb(null, source);
+}
+module.exports = loader;
+loader.pitch = function (remainingRequest,previousRequest,data) {
+    console.log('pitch1');
+}
+```
+###  log-loader2.js
+```js
+//source就是接收到的源文件的内容
+let loader = function (source, sourceMaps, extra) {
+    let cb = this.async();
+    console.log('loader2');
+    cb(null, source);
+}
+
+module.exports = loader;
+loader.pitch = function (remainingRequest,previousRequest,data) {
+    console.log('pitch2');
+    return "2";
+}
+```
+### log-loader3.js
+```js
+//source就是接收到的源文件的内容
+const loaderUtils = require('loader-utils');
+let loader = function (source) {
+    let cb = this.async();
+    console.log('loader3');
+    cb(null, source);
+}
+module.exports = loader;
+loader.pitch = function () {
+    console.log('pitch3');
+}
+```
+```js
+{
+  test: /\.less$/,
+  use:[path.resolve('src/loaders/log-loader1'),path.resolve('src/loaders/log-loader2'),path.resolve('src/loaders/log-loader3')]
+}
+```
+### css
+- [css-loader](https://github.com/webpack-contrib/css-loader/blob/master/lib/loader.js) 的作用是处理css中的 @import 和 url 这样的外部资源
+- [style-loader](https://github.com/webpack-contrib/style-loader/blob/master/index.js) 的作用是把样式插入到 DOM中，方法是在head中插入一个style标签，并把样式写入到这个标签的 innerHTML里
+- [less-loader](https://github.com/webpack-contrib/less-loader) Compiles Less to CSS
+- [pitching-loader](https://webpack.js.org/api/loaders/#pitching-loader)
+- [loader-utils](https://github.com/webpack/loader-utils)
+- [!!](https://webpack.js.org/concepts/loaders/#configuration)
+
+- post(后置)+inline(内联)+normal(正常)+pre(前置)
+
+- `!` noAutoLoaders 所有的普通loader都不要执行
+- `!!` noPrePostAutoLoaders 不要前后置loader
+- `-!` noPreAutoLoaders 不要前置loader
+
+### less-loader.js
+```js
+let less = require('less');
+module.exports = function (source) {
+    let callback = this.async();
+    less.render(source, { filename: this.resource }, (err, output) => {
+        this.callback(err, output.css);
+    });
+}
+```
+有些时间我们希望`less-loader`可以放在use数组最左边，最左边要求返回一个`JS脚本`
+```js
+let less=require('less');
+module.exports=function (source) {
+  let callback = this.async();
+    less.render(source,(err,output) => {
+        callback(err, `module.exports = ${JSON.stringify(output.css)}`);
+    });
+}
+```
+### css-loader.js 
+```js
+
+```
+### style-loader
+```js
+let loaderUtils=require("loader-utils");
+ function loader(source) {
+    let script=(`
+      let style = document.createElement("style");
+      style.innerHTML = ${JSON.stringify(source)};
+      document.head.appendChild(style);
+    `);
+    return script;
+} 
+//pitch里的参数可不是文件内容，而是文件的请求路径
+//pitch request就是你要加载的文件路径 //index.less
+loader.pitch = function (request) {
+    let style = `
+    var style = document.createElement("style");
+    style.innerHTML = require(${loaderUtils.stringifyRequest(this, "!!" + request)});
+    document.head.appendChild(style);
+ `;
+    return style;
+}
+module.exports = loader;
+```
+### bundle
+```js
+{
+ "./loaders/css-loader.js!./loaders/less-loader.js!./src/index.less":
+/*!*************************************************************************!*\
+  !*** ./loaders/css-loader.js!./loaders/less-loader.js!./src/index.less ***!
+  \*************************************************************************/
+ (function(module, exports, __webpack_require__) {
+eval("let lists = [];\r\nlists.push(\"div {\\n  color: red;\\n}\\nbody {\\n  background: \")\r\nlists.push(\"url(\"+__webpack_require__(/*! ./baidu.png */ \"./src/baidu.png\")+\")\")\r\nlists.push(\";\\n}\\n\")\r\nmodule.exports = lists.join('')\n\n//# sourceURL=webpack:///./src/index.less?./loaders/css-loader.js!./loaders/less-loader.js");
+
+ }),
+ "./src/baidu.png":
+ (function(module, exports, __webpack_require__) {
+eval("module.exports = __webpack_require__.p + \"b15c113aeddbeb606d938010b88cf8e6.png\";\n\n//# sourceURL=webpack:///./src/baidu.png?");
+ }),
+ "./src/index.js":
+ (function(module, __webpack_exports__, __webpack_require__) {
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.less */ \"./src/index.less\");\n/* harmony import */ var _index_less__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_less__WEBPACK_IMPORTED_MODULE_0__);\n\n\n//# sourceURL=webpack:///./src/index.js?");
+ }),
+ "./src/index.less":
+ (function(module, exports, __webpack_require__) {
+eval("\n    var style = document.createElement(\"style\");\n    style.innerHTML = __webpack_require__(/*! !../loaders/css-loader.js!../loaders/less-loader.js!./index.less */ \"./loaders/css-loader.js!./loaders/less-loader.js!./src/index.less\");\n    document.head.appendChild(style);\n \n\n//# sourceURL=webpack:///./src/index.less?");
+ }
+```
+### exact-loader.js
+```js
+//把CSS文件单独放置到一个文件中去，然后在页面中通过link标签去引入
+let loader = function (source) {
+    //发射或者说输出一个文件，这个文件的内容 就是css文件的内容
+    this.emitFile('main.css', source);
+    let script = `
+     let link  = document.createElement('link');
+     link.setAttribute('rel','stylesheet');
+     link.setAttribute('href','main.css');
+     document.head.appendChild(link);
+  `;
+    return script;
+}
+module.exports = loader;
+```
+### file
+
+`file-loader` 并不会对文件内容进行任何转换，只是复制一份文件内容，并根据配置为他生成一个唯一的文件名。
+
+#### file-loader
+- [file-loader](https://github.com/webpack-contrib/file-loader/blob/master/src/index.js)
+- [public-path](https://webpack.js.org/guides/public-path/#on-the-fly)
+
+```js
+const { getOptions, interpolateName } = require('loader-utils');
+function loader(content) {
+    let options=getOptions(this)||{};
+    let url = interpolateName(this, options.filename || "[hash]", {content});
+    url = url  + this.resourcePath.slice(this.resourcePath.lastIndexOf('.'));
+    //发射一个文件 向输出里保存一个文件
+    this.emitFile(url, content);
+    return `module.exports = ${JSON.stringify(url)}`;
+}
+loader.raw = true;
+module.exports = loader;
+```
+- 通过 `loaderUtils.interpolateName` 方法可以根据 `options.name` 以及文件内容生成一个唯一的文件名 `url`（一般配置都会带上hash，否则很可能由于文件重名而冲突）
+- 通过 `this.emitFile(url, content)` 告诉 webpack 我需要创建一个文件，webpack会根据参数创建对应的文件，放在 `public path` 目录下
+- 返回 `module.exports = ${JSON.stringify(url)}`,这样就会把原来的文件路径替换为编译后的路径
+
+### url-loader
+```js
+let { getOptions } = require('loader-utils');
+var mime = require('mime');
+function loader(source) {
+    let options=getOptions(this)||{};
+    let { limit, fallback='file-loader' } = options;
+    if (limit) {
+      limit = parseInt(limit, 10);
+    }
+    const mimetype=mime.getType(this.resourcePath);
+    if (!limit || source.length < limit) {
+        let base64 = `data:${mimetype};base64,${source.toString('base64')}`;
+        return `module.exports = ${JSON.stringify(base64)}`;
+    } else {
+        let fileLoader = require(fallback || 'file-loader');
+        return fileLoader.call(this, source);
+    }
+}
+loader.raw = true;
+module.exports = loader;
+```
+
+### html-layout-loader
+#### webpack.config.js 
+```js
+{
+  test: /\.html$/,
+     use: {
+          loader: 'html-layout-loader',
+          options: {
+              layout: path.join(__dirname, 'src', 'layout.html'),
+              placeholder: '{{__content__}}'
+     }
+  }
+}
+
+plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/login.html',
+            filename: 'login.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: './src/home.html',
+            filename: 'home.html'
+        })
+]
+```
+#### html-layout-loader
+```js
+const path = require('path');
+const fs = require('fs');
+const loaderUtils = require('loader-utils');
+const defaultOptions = {
+    placeholder: '{{__content__}}',
+    decorator: 'layout'
+}
+module.exports = function (source) {
+    let callback = this.async();
+    this.cacheable && this.cacheable();
+    const options = Object.assign(loaderUtils.getOptions(this), defaultOptions);
+    const { placeholder, decorator, layout } = options;
+    fs.readFile(layout, 'utf8', (err, html) => {
+        html = html.replace(placeholder, source);
+        callback(null, `module.exports = ${JSON.stringify(html)}`);
+    })
+}
+```
+```js
+const path = require('path');
+const fs = require('fs');
+const loaderUtils = require('loader-utils');
+const defaultOptions = {
+    placeholder:'{{__content__}}',
+    decorator:'layout'
+}
+module.exports = function(source){
+    let callback = this.async();
+    this.cacheable&& this.cacheable();
+    const options = {...loaderUtils.getOptions(this),...defaultOptions};
+    const {placeholder,layout,decorator} = options;
+    const layoutReg = new RegExp(`@${decorator}\\((.+?)\\)`);
+    let result = source.match(layoutReg);
+    if(result){
+        source = source.replace(result[0],'');
+        render(path.resolve(this.context,result[1]), placeholder, source, callback)
+    }else{
+        render(layout, placeholder, source, callback);
+    }
+
+}
+function render(layout, placeholder, source, callback) {
+    fs.readFile(layout, 'utf8', (err, html) => {
+        html = html.replace(placeholder, source);
+        callback(null, `module.exports = ${JSON.stringify(html)}`);
+    })
+}
+```
+## loader测试
+### 安装依赖
+```sh
+cnpm install --save-dev jest babel-jest babel-preset-env
+cnpm install --save-dev webpack memory-fs
+```
+
+### src/loader.js
+```js
+let {getOptions} = require('loader-utils');
+function loader(source){
+   const options = getOptions(this);
+   source=source.replace(/\[name\]/g,options.name);
+   return `module.exports = ${JSON.stringify(source)}`;
+}
+module.exports=loader;
+```
+### test/example.txt 
+```js
+hello [name]
+```
+###  test/compile.js
+```js
+const path=require('path');
+const webpack=require('webpack');
+let MemoryFs=require('memory-fs');
+module.exports = function(fixture,options={}) {
+    const compiler=webpack({
+        mode:'development',
+        context: __dirname,
+        entry: `./${fixture}`,
+        output: {
+            path: path.resolve(__dirname),
+            filename:'bundle.js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.txt$/,
+                    use: {
+                        loader: path.resolve(__dirname,'../src/loader.js'),
+                        options:{name:'Alice'}
+                    }
+                }
+            ]
+        }
+    });
+    compiler.outputFileSystem=new MemoryFs();
+    return new Promise(function (resolve,reject) {
+        compiler.run((err,stats) => {
+            if (err) reject(err);
+            else resolve(stats);
+        });
+    });
+}
+```
+### test/loader.test.js
+```js
+let compile=require('./compile');
+test('replace name',async () => {
+    const stats=await compile('example.txt');
+    const data=stats.toJson();
+    const source=data.modules[0].source;
+    expect(source).toBe(`module.exports = "hello Alice"`);
+});
+```
+###  package.json
+```js
+"scripts": {
+  "test":"jest"
+}
+```
+-----------
+### loader源码
+loader是用来加载处理各种形式的资源,本质上是一个函数, 接受文件作为参数,返回转化后的结构。
+
+- loader 用于对模块的源代码进行转换
+- loader 可以使你在 import 或"加载"模块时预处理文件
+
+#### NormalModuleFactory
+- `!` noAutoLoaders 所有的loader都不要执行
+- `!!` noPrePostAutoLoaders 不要前后置loader
+- `-!` noPreAutoLoaders 不要前置loader
+
+```js
+this.hooks.resolver.tap("NormalModuleFactory", () => (data, callback) => {
+            const contextInfo = data.contextInfo;
+            const context = data.context;
+            const request = data.request;
+            debugger /*resolve钩子上注册的方法较长，其中还包括了模块资源本身的路径解析。resolver有两种，分别是loaderResolver和normalResolver。*/
+            const loaderResolver = this.getResolver("loader");
+            const normalResolver = this.getResolver("normal", data.resolveOptions);
+            //匹配的资源
+            let matchResource = undefined;
+            let requestWithoutMatchResource = request;//这是原始的请求
+            const matchResourceMatch = MATCH_RESOURCE_REGEX.exec(request);//"^([^!]+)!=!"
+            if (matchResourceMatch) {//如果能匹配上
+                matchResource = matchResourceMatch[1];//取得匹配到的资源 
+                if (/^\.\.?\//.test(matchResource)) {//如果是一个相对路径,则转成绝对路径
+                    matchResource = path.join(context, matchResource);
+                }//把匹配到的部分截取掉
+                requestWithoutMatchResource = request.substr(
+                    matchResourceMatch[0].length
+                );
+            }
+            debugger /*noPreAuto指的是只用行内loader,禁用配置文件中的loader配置*/
+            const noPreAutoLoaders = requestWithoutMatchResource.startsWith("-!");
+            const noAutoLoaders =
+                noPreAutoLoaders || requestWithoutMatchResource.startsWith("!");//!表示不走配置
+            const noPrePostAutoLoaders = requestWithoutMatchResource.startsWith("!!");//表示禁用前后loader
+            let elements = requestWithoutMatchResource
+                .replace(/^-?!+/, "")//把-!替换成空
+                .replace(/!!+/g, "!")//把!!替换成一个!
+                .split("!"); debugger /*webpack会从request中解析出所需的loader,包括资源本身 */
+            let resource = elements.pop();//取得资源
+            elements = elements.map(identToLoaderRequest);//剩下的全转成loader对象
+```
+### webpack/lib/NormalModule.js:263
+```js
+runLoaders({
+                resource: this.resource,
+                loaders: this.loaders,
+                context: loaderContext
+},
+(err, result) => {
+const resourceBuffer = result.resourceBuffer;
+const source = result.result[0];
+const sourceMap = result.result.length >= 1 ? result.result[1] : null;
+const extraInfo = result.result.length >= 2 ? result.result[2] : null;//ast
+this._source = this.createSource(
+                    this.binary ? asBuffer(source) : asString(source),
+                    resourceBuffer,
+                    sourceMap
+);
+this._ast = typeof extraInfo === "object" &&
+                    extraInfo !== null &&
+                    extraInfo.webpackAST !== undefined? extraInfo.webpackAST: null;
+} 
+
+```
+### LoaderRunner.js
+loader-runner/lib/LoaderRunner.js
+```js
+iteratePitchingLoaders(processOptions, loaderContext, function(err, result) {
+callback(null, {
+            result: result,//结果
+            resourceBuffer: processOptions.resourceBuffer,
+            cacheable: requestCacheable,
+            fileDependencies: fileDependencies,
+            contextDependencies: contextDependencies
+});
+}
+```
+### LoaderRunner.js:155
+```js
+if(loaderContext.loaderIndex >= loaderContext.loaders.length)
+        return processResource(options, loaderContext, callback);
+var fn = currentLoaderObject.pitch;
+
+runSyncOrAsync(fn,loaderContext);
+
+function runSyncOrAsync(fn, context, args, callback) {
+    var isSync = true;
+    var isDone = false;
+    var isError = false; // internal error
+    var reportedError = false;
+    context.async = function async() {
+        if (isDone) {
+            if (reportedError) return; // ignore
+            throw new Error("async(): The callback was already called.");
+        }
+        isSync = false;
+        return innerCallback;
+    };
+    var innerCallback = context.callback = function () {
+        if (isDone) {
+            if (reportedError) return; // ignore
+            throw new Error("callback(): The callback was already called.");
+        }
+        isDone = true;
+        isSync = false;
+        try {
+            callback.apply(null, arguments);
+        } catch (e) {
+            isError = true;
+            throw e;
+        }
+    };
+    try {
+        var result = (function LOADER_EXECUTION() {
+            return fn.apply(context, args);
+        }());
+        if (isSync) {
+            isDone = true;
+            if (result === undefined)
+                return callback();
+            if (result && typeof result === "object" && typeof result.then === "function") {
+                return result.catch(callback).then(function (r) {
+                    callback(null, r);
+                });
+            }
+            return callback(null, result);
+        }
+    } catch (e) {
+        if (isError) throw e;
+        if (isDone) {
+            // loader is already "done", so we cannot use the callback function
+            // for better debugging we print the error on the console
+            if (typeof e === "object" && e.stack) console.error(e.stack);
+            else console.error(e);
+            return;
+        }
+        isDone = true;
+        reportedError = true;
+        callback(e);
+    }
+
+}
+```
+```js
+function runSyncOrAsync(fn, context, callback) {
+    var isSync = true;
+    context.callback = callback;
+    context.async = function async() {
+        isSync = false;
+        return context.callback;
+    };
+
+    var result = fn.apply(context);
+    if (isSync) {
+        return callback(null, result);
+    }
+}
+
+function say() {
+    return this.name;
+}
+function say2() {
+    let cb = this.async();
+    cb(null);
+}
+let context = { name: 'zfpx' };
+runSyncOrAsync(say2, context, function () {
+    console.log('over');
+});
+```
+### loadLoader.js:13
+loader-runner/lib/loadLoader.js:13
+```js
+var module = require(loader.path);
+loader.normal = typeof module === "function" ? module : module.default;
+loader.pitch = module.pitch;
+loader.raw = module.raw;
+```
+###  LoaderRunner.js
+loader-runner/lib/LoaderRunner.js
+```js
+runSyncOrAsync(
+            fn,
+            loaderContext, [loaderContext.remainingRequest, loaderContext.previousRequest, currentLoaderObject.data = {}],
+            function(err) {
+                if(err) return callback(err);
+                var args = Array.prototype.slice.call(arguments, 1);
+                if(args.length > 0) {
+                    loaderContext.loaderIndex--;
+                    iterateNormalLoaders(options, loaderContext, args, callback);
+                } else {
+                    iteratePitchingLoaders(options, loaderContext, callback);
+                }
+            }
+        );
+```
 ----------------
 ## 参考
 - [loader-utils](https://github.com/webpack/loader-utils)

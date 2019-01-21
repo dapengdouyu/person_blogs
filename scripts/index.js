@@ -1,7 +1,6 @@
 require('shelljs/global');
 var spawn = require('child_process').exec;
 
-
 try {
     hexo.on('deployAfter', function() {//当deploy完成后执行备份
 		run();
